@@ -6,47 +6,49 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/02/26 21:45:33 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/02/27 18:01:51 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include <stdio.h>
-typedef struct s_list
-{
+// typedef struct s_list
+// {
 	
-}t_list;
+// }t_list;
 
 int	handel_border( char **split,int whidth, int height)
 {
-	int	i;
+	int	x;
+	int	y;
 
-	i = 0;
+	x = 0;
+	y = 0;
 		//first line and last line
-	while (i < whidth)
+	while (x < whidth)
 	{
-		if (split[0][i] != 1 || split[height][i] != 1)
-			return 1;
-		i++;
+		if (split[0][x] != '1' || split[height - 1][x] != '1')
+			return (1);
+		x++;
 	}
-	if (split[0][i])
 	//first column and last column
-	i = 0;
-	while (i < height)
+	y = 0;
+	while (y < height && split[y] != NULL)
 	{
-		if (split[i][0] != 1 || split[i][whidth] != 1)
-			return 1;
-		i++;
+		if (split[y][0] != '1' || split[y][whidth - 1] != '1')
+			return (1);
+		if (ft_strlen(split[y]) != (size_t)whidth)
+            return 1;
+		y++;
 	}
 	return (0);
+	
 }
 
-// int	handel_content( char **split,int whidth, int height)
+ //int	handel_content( char **split,int whidth, int height, int p, int e)
 // {
-// 	// int	y;
-// 	int	x;
-// 	int	p;
-// 	int	e;
+// 	int	y = 0;
+// 	int	x = 0;
 // 	// player
 // 	while (y < height)
 // 	{
@@ -77,32 +79,38 @@ int main()
 	
 	int		fd;
 	int		width;
+	int		height;
 	char	*bufer;
 	char	*s;
 	char 	**split;
 	void	*mlx_ptr;
 	void	*mlx_win;
+	// int		p = 0;
+	// int		e = 0;
 	
 	fd = open("maps.ber", O_RDONLY);
 	if(fd < 0)
 		return (1);
 	
 	s =get_next_line(fd);
-	if(!s)
-			return (1);
+	if(!s || s[0] != '1')
+		return (1);
 	while (s)
 	{
 		bufer =	ft_strjoin(bufer, s);
 		s = get_next_line(fd);
+		if (s && s[0] != '1')
+			return (printf("rrrrrr"), 1);
 		free(s);
 	}
 	
 	split = ft_split(bufer, '\n');
 	if (!split)
 		return (1);
+	//whidth of first line
 	width = ft_strlen(split[0]);
-    int i = 0;
-	int height = count_word(bufer, '\n');
+	height = count_word(bufer, '\n');
+   	int i = 0;
 	while(split[i])
 	{
 		printf("%s\n", split[i]);
@@ -111,6 +119,12 @@ int main()
 	
 	printf("width : %d\n", width);
 	printf("height : %d\n", height);
+	int t = handel_border(split, width, height);
+	if (t == 1)
+	{
+		printf("error \n border");
+		exit(1);
+	}
     mlx_ptr = mlx_init();
 	mlx_win = mlx_new_window(mlx_ptr, width * 70, height * 70, "./so_long");
 	mlx_loop(mlx_ptr);
