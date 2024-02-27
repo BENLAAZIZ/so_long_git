@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/02/27 18:01:51 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/02/27 19:12:51 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,33 +45,31 @@ int	handel_border( char **split,int whidth, int height)
 	
 }
 
- //int	handel_content( char **split,int whidth, int height, int p, int e)
-// {
-// 	int	y = 0;
-// 	int	x = 0;
-// 	// player
-// 	while (y < height)
-// 	{
-// 		while (x < whidth)
-// 		{
-// 			if (split[0][x] == 'P')
-// 				p++;
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// 	//  collectible,
-// 	while (y < height)
-// 	{
-// 		while (x < whidth)
-// 		{
-// 			if (split[0][x] == 'E')
-// 				e++;
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// }
+ int	handel_content( char **split,int whidth, int height, int *p, int *e)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	// player
+	while (i < height)
+	{
+		while (j < whidth)
+		{
+			if (split[i][j] != '1' && split[i][j] != '0' && split[i][j] != 'P' && split[i][j] != 'E' && split[i][j] != 'C')
+				return (1);
+			if (split[i][j] == 'P')
+				(*p)++;
+			if (split[i][j] == 'E')
+				(*e)++;
+			j++;
+		}
+		i++;
+	}
+	//  collectible
+	return (0);
+}
 
 
 int main()
@@ -119,14 +117,24 @@ int main()
 	
 	printf("width : %d\n", width);
 	printf("height : %d\n", height);
+	//************************************
 	int t = handel_border(split, width, height);
 	if (t == 1)
 	{
 		printf("error \n border");
 		exit(1);
 	}
+	//************************************
+	int p = 0;
+	int e = 0;
+	int u = handel_content(split, width, height, &p, &e);
+	if (u == 1)
+	{
+		printf("error \n content");
+		exit(1);
+	}
     mlx_ptr = mlx_init();
-	mlx_win = mlx_new_window(mlx_ptr, width * 70, height * 70, "./so_long");
+	mlx_win = mlx_new_window(mlx_ptr, width * 50, height * 70, "./so_long");
 	mlx_loop(mlx_ptr);
 
 	// mlx_put_image_to_window()
