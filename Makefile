@@ -2,11 +2,11 @@ NAME = so_long
 
 CC = cc
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = 
 
 RM = rm -f
 
-SRC =  so_long.c ft_split.c get_next_line.c  get_next_line_utils.c 
+SRC =  so_long.c ft_split.c get_next_line.c  get_next_line_utils.c valid_map.c
 	  
 
 OBJ = $(SRC:.c=.o)
