@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/02/28 22:53:10 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/02/29 11:42:50 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,18 @@
 	
 // }t_list;
 // read map
+// void	free_function(char **split, int	height)
+// {
+// 	int	i;
+	
+// 	i = 0;
+// 	while (0 < height)
+// 	{
+// 		height--;
+// 		free(split[height]);
+// 		split[height] = NULL;
+// 	}
+// }
 char	*read_map(int fd)
 {
 	char	*s;
@@ -33,10 +45,40 @@ char	*read_map(int fd)
 		free(tmp);
 		free(s);
 		if (s && s[0] != '1')
-			return (free(buffer), printf("rrrrrr"), NULL);
+			return (free(buffer), ft_print_error("border"), NULL);
 	}
 	return (buffer);
 }
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t			i;
+	unsigned char	*ss1;
+	unsigned char	*ss2;
+
+	i = 0;
+	ss1 = (unsigned char *)s1;
+	ss2 = (unsigned char *)s2;
+	while ((ss1[i] != '\0' || ss2[i] != '\0') && (n > i))
+	{
+		if (ss1[i] != ss2[i])
+			return (ss1[i] - ss2[i]);
+		i++;
+	}
+	if (n == i)
+		return (0);
+	return (ss1[i] - ss2[i]);
+}
+
+void	ft_print_error(char *str)
+{
+	if (ft_strncmp(str, "content", ft_strlen(str)) == 0)
+		write(1, "eroor\ncontent", 13);
+	if (ft_strncmp(str, "border", ft_strlen(str)) == 0)
+		write(1, "eroor\nborder", 12);
+	if (ft_strncmp(str, "arg", ft_strlen(str)) == 0)
+		write(1, "eroor\nnumber of arguments invalid", 33);
+}
+
 int main(int arg_c, char **arg_v)
 {
 	
@@ -51,18 +93,20 @@ int main(int arg_c, char **arg_v)
 	void	*mlx_win;
 
 	if (arg_c != 2)
-		return (printf("error nbr arg"), 1); 
+		return (ft_print_error("arg"), 1); 
 	fd = open(arg_v[1], O_RDONLY);
 	if(fd < 0)
-		return (1);
+		return (close(fd), 1);
 	bufer =	read_map(fd);
+	if (!bufer)
+		return(free(bufer), 1);
 	//ayman
 	l = 0;
 	while (bufer[l] != '\0')
 	{
 		if ((bufer[l] != '1' && bufer[l] != '0' && bufer[l] != 'P' && bufer[l] != 'E' && bufer[l] != 'C' && bufer[l] != '\n'))
 			{
-				return (1);
+				return (free(bufer), ft_print_error("content"),1);
 			}
 		l++;
 	}
@@ -81,12 +125,10 @@ int main(int arg_c, char **arg_v)
 		printf("%s\n", split[i]);
 		i++;
 	}
-	// printf("width : %d\n", width);
-	// printf("height : %d\n", height);
 	//************************************
 	int t = handel_border(split, width, height);
 	if (t == 1)
-		return (puts("error"), 1);
+		return (ft_print_error("border"), 1);
 	//************************************
    //*************************************** amon zam*****
    int x = width;

@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:03:30 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/02/28 21:48:15 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/02/29 11:30:50 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char	*ft_strdup(const char *s1);
 char	**my_array(char **array, char const *s, char c, int nbr_word);
 char	**ft_split(char const *s, char c);
 int		handel_border( char **split,int whidth, int height);
-
+void	ft_print_error(char *str);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 #endif
