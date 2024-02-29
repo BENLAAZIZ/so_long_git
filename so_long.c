@@ -6,29 +6,22 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/02/29 11:42:50 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/02/29 12:38:18 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include <stdio.h>
-// typedef struct s_list
-// {
+typedef struct s_piece
+{
+	void *avatar;
+	void *route;
+	void *wall;
+	void *coin;
+	void *road;
 	
-// }t_list;
+}t_piece;
 // read map
-// void	free_function(char **split, int	height)
-// {
-// 	int	i;
-	
-// 	i = 0;
-// 	while (0 < height)
-// 	{
-// 		height--;
-// 		free(split[height]);
-// 		split[height] = NULL;
-// 	}
-// }
 char	*read_map(int fd)
 {
 	char	*s;
@@ -79,11 +72,43 @@ void	ft_print_error(char *str)
 		write(1, "eroor\nnumber of arguments invalid", 33);
 }
 
+void	put_image(char **temp, void *mlx_ptr, void *mlx_win, t_piece *p)
+{
+	int		j;
+	int		i;
+	
+	i = 0;
+	while(temp[i])
+	{
+		j = 0;
+		while(temp[i][j] != '\0')
+		{
+			puts("here");
+			if(temp[i][j] == '1')
+				mlx_put_image_to_window(mlx_ptr, mlx_win, p->wall, j * 50, i * 50);
+			if(temp[i][j] == '0')
+				mlx_put_image_to_window(mlx_ptr, mlx_win, p->route, j * 50, i * 50);
+			if(temp[i][j] == 'P')
+				mlx_put_image_to_window(mlx_ptr, mlx_win, p->avatar, j * 50, i * 50);
+			if(temp[i][j] == 'E')
+				mlx_put_image_to_window(mlx_ptr, mlx_win, p->road, j * 50, i * 50);
+			if(temp[i][j] == 'C')
+				mlx_put_image_to_window(mlx_ptr, mlx_win, p->coin, j * 50, i * 50);
+			j++;
+		}
+		i++;
+	}
+}
+
+// char	*funct1()
+// {
+	
+// }
+
 int main(int arg_c, char **arg_v)
 {
 	
 	int		fd;
-	int		l;
 	int		width;
 	int		height;
 	char	*bufer;
@@ -91,6 +116,9 @@ int main(int arg_c, char **arg_v)
 	char 	**split;
 	void	*mlx_ptr;
 	void	*mlx_win;
+	int 	i;
+	int		t;
+	t_piece p;
 
 	if (arg_c != 2)
 		return (ft_print_error("arg"), 1); 
@@ -101,73 +129,41 @@ int main(int arg_c, char **arg_v)
 	if (!bufer)
 		return(free(bufer), 1);
 	//ayman
-	l = 0;
-	while (bufer[l] != '\0')
+	i = 0;
+	while (bufer[i] != '\0')
 	{
-		if ((bufer[l] != '1' && bufer[l] != '0' && bufer[l] != 'P' && bufer[l] != 'E' && bufer[l] != 'C' && bufer[l] != '\n'))
+		if ((bufer[i] != '1' && bufer[i] != '0' && bufer[i] != 'P' && bufer[i] != 'E' && bufer[i] != 'C' && bufer[i] != '\n'))
 			{
 				return (free(bufer), ft_print_error("content"),1);
 			}
-		l++;
+		i++;
 	}
 	//ayamn final
 	split = ft_split(bufer, '\n');
 	char **temp  = split;
-	// char **temp = split;
 	if (!split)
 		return (1);
 	//whidth of first line
 	width = ft_strlen(split[0]);
 	height = count_word(bufer, '\n');
-   	int i = 0;
-	while(split[i])
-	{
-		printf("%s\n", split[i]);
-		i++;
-	}
 	//************************************
-	int t = handel_border(split, width, height);
+	t = handel_border(split, width, height);
 	if (t == 1)
 		return (ft_print_error("border"), 1);
 	//************************************
-   //*************************************** amon zam*****
-   int x = width;
+    int x = width;
 	int y = height;
 	mlx_ptr = mlx_init();
 	mlx_win = mlx_new_window(mlx_ptr, x * 50, y * 50, "so_long");
-	i = 0;
 	int w;
 	int h;
-	void *avatar = mlx_xpm_file_to_image(mlx_ptr ,"textures/player.xpm",&w,&h);
-	void *route = mlx_xpm_file_to_image(mlx_ptr ,"textures/route.xpm", &w, &h);
-	void *wall = mlx_xpm_file_to_image(mlx_ptr ,"textures/wall_sijn1pxm.xpm", &w, &h);
-	void *coin = mlx_xpm_file_to_image(mlx_ptr ,"coin.xpm", &w, &h);
-	void *road = mlx_xpm_file_to_image(mlx_ptr ,"road.xpm", &w, &h);
-	// char **split = ft_split(bufer, '\n');
+	p.avatar = mlx_xpm_file_to_image(mlx_ptr ,"textures/player.xpm",&w,&h);
+	p.route = mlx_xpm_file_to_image(mlx_ptr ,"textures/route.xpm", &w, &h);
+	p.wall = mlx_xpm_file_to_image(mlx_ptr ,"textures/wall_sijn1pxm.xpm", &w, &h);
+	p.coin = mlx_xpm_file_to_image(mlx_ptr ,"coin.xpm", &w, &h);
+	p.road = mlx_xpm_file_to_image(mlx_ptr ,"road.xpm", &w, &h);
 	free(bufer);
-	int j;
-	while(temp[i])
-	{
-		j = 0;
-		while(temp[i][j] != '\0')
-		{
-		puts("here");
-			if(temp[i][j] == '1')
-				mlx_put_image_to_window(mlx_ptr, mlx_win, wall, j * 50, i * 50);
-			if(temp[i][j] == '0')
-				mlx_put_image_to_window(mlx_ptr, mlx_win, route, j * 50, i * 50);
-			if(temp[i][j] == 'P')
-				mlx_put_image_to_window(mlx_ptr, mlx_win, avatar, j * 50, i * 50);
-			if(temp[i][j] == 'E')
-				mlx_put_image_to_window(mlx_ptr, mlx_win, road, j * 50, i * 50);
-			if(temp[i][j] == 'C')
-				mlx_put_image_to_window(mlx_ptr, mlx_win, coin, j * 50, i * 50);
-			j++;
-		}
-		i++;
-	}
+	put_image(temp, mlx_ptr, mlx_win, &p);
 	mlx_loop(mlx_ptr);
-	//******************************* fin amin zam ********************
-	// mlx_put_image_to_window()
 	return (0);
 }
