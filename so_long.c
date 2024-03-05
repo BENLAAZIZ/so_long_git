@@ -6,21 +6,12 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/05 18:10:15 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/05 19:34:53 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include <stdio.h>
-
-typedef struct s_data
-{
-	void *mlx_ptr;
-	void *win_ptr;
-	void *img_ptr;
-	int width;
-	int height;	
-} t_data;
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
@@ -77,8 +68,6 @@ void print_image(char **split, char *bufer, t_data data)
 	h = 50;
 	i = 0;
 	data.mlx_ptr = mlx_init();
-	data.width = ft_strlen(split[0]);
-	data.height = count_word(bufer, '\n');
 	data.win_ptr =mlx_new_window(data.mlx_ptr, data.width * 50, data.height * 50, "./so-long");
 	while(i < data.height)
 	{
@@ -109,12 +98,15 @@ int main(int arg_c, char **arg_v)
 	if (!bufer)
 		return(free(bufer), close(fd), 1);
 	if (handel_content(bufer) == 1)
-		return (free(bufer), close(fd), ft_print_error("content"),1);
+		return (free(bufer), close(fd), 1);
 	split = ft_split(bufer, '\n');
 	if (!split)
-		return (1);
-	if ((handel_border(split, data.width, data.height)) == 1)
-		return (ft_print_error("border"), 1);
+		return (free(bufer), close(fd), 1);
+	data.width = ft_strlen(split[0]);
+	data.height = count_word(bufer, '\n');
+	if ((handel_border(split, data.width, data.height, data)) == 1)
+		return (free(bufer), close(fd), 1);
+//printf("|ttttttttt\n");
 	print_image(split, bufer, data);
 	return (0);
 }
