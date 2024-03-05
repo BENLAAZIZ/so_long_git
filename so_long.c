@@ -6,12 +6,13 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/02/29 13:41:33 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/05 18:10:15 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include <stdio.h>
+
 typedef struct s_data
 {
 	void *mlx_ptr;
@@ -19,28 +20,8 @@ typedef struct s_data
 	void *img_ptr;
 	int width;
 	int height;	
-}  t_data;
-// read map
-char	*read_map(int fd)
-{
-	char	*s;
-	char	*buffer;
-	char	*tmp;
+} t_data;
 
-	s = "   ";
-	buffer = NULL;
-	while (s)
-	{
-		s = get_next_line(fd);
-		tmp = buffer;
-		buffer = ft_strjoin(buffer, s);
-		free(tmp);
-		free(s);
-		if (s && s[0] != '1')
-			return (free(buffer), ft_print_error("border"), NULL);
-	}
-	return (buffer);
-}
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t			i;
@@ -60,7 +41,6 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		return (0);
 	return (ss1[i] - ss2[i]);
 }
-
 void	ft_print_error(char *str)
 {
 	if (ft_strncmp(str, "content", ft_strlen(str)) == 0)
@@ -70,34 +50,6 @@ void	ft_print_error(char *str)
 	if (ft_strncmp(str, "arg", ft_strlen(str)) == 0)
 		write(1, "eroor\nnumber of arguments invalid", 33);
 }
-
-// void	put_image(char **temp, void *mlx_ptr, void *mlx_win, t_piece *p)
-// {
-// 	int		j;
-// 	int		i;
-	
-// 	i = 0;
-// 	while(temp[i])
-// 	{
-// 		j = 0;
-// 		while(temp[i][j] != '\0')
-// 		{
-// 			puts("here");
-// 			if(temp[i][j] == '1')
-// 				mlx_put_image_to_window(mlx_ptr, mlx_win, p->wall, j * 50, i * 50);
-// 			if(temp[i][j] == '0')
-// 				mlx_put_image_to_window(mlx_ptr, mlx_win, p->route, j * 50, i * 50);
-// 			if(temp[i][j] == 'P')
-// 				mlx_put_image_to_window(mlx_ptr, mlx_win, p->avatar, j * 50, i * 50);
-// 			if(temp[i][j] == 'E')
-// 				mlx_put_image_to_window(mlx_ptr, mlx_win, p->road, j * 50, i * 50);
-// 			if(temp[i][j] == 'C')
-// 				mlx_put_image_to_window(mlx_ptr, mlx_win, p->coin, j * 50, i * 50);
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// }
 char *get_image_path(int c)
 {
 	char *path_img;
@@ -114,57 +66,20 @@ char *get_image_path(int c)
 		path_img = "coin.xpm";
 	return (path_img);	
 }
-int main(int arg_c, char **arg_v)
+void print_image(char **split, char *bufer, t_data data)
 {
-	
-	int		fd;
-	char	*bufer;
-	char 	**split;
-	int		t;
-	// t_piece p;
+	int	i;
+	int	j;
+	int	w;
+	int	h;
 
-	if (arg_c != 2)
-		return (ft_print_error("arg"), 1); 
-	fd = open(arg_v[1], O_RDONLY);
-	if(fd < 0)
-		return (close(fd), 1);
-	bufer =	read_map(fd);
-	if (!bufer)
-		return(free(bufer), 1);
-	//ayman
-	int i = 0;
-	t_data data;
-	while (bufer[i] != '\0')
-	{
-		if ((bufer[i] != '1' && bufer[i] != '0' && bufer[i] != 'P' && bufer[i] != 'E' && bufer[i] != 'C' && bufer[i] != '\n'))
-			{
-				return (free(bufer), ft_print_error("content"),1);
-			}
-		i++;
-	}
-	//ayamn final
-	split = ft_split(bufer, '\n');
-	char **temp  = split;
-	if (!split)
-		return (1);
-	//whidth of first line
+	w = 50;
+	h = 50;
+	i = 0;
 	data.mlx_ptr = mlx_init();
 	data.width = ft_strlen(split[0]);
 	data.height = count_word(bufer, '\n');
-	//************************************
-	t = handel_border(split, data.width, data.height);
-	if (t == 1)
-		return (ft_print_error("border"), 1);
-	//************************************
-	// p.route = mlx_xpm_file_to_image(mlx_ptr ,"textures/route.xpm", &w, &h);
-	// p.wall = mlx_xpm_file_to_image(mlx_ptr ,"textures/wall_sijn1pxm.xpm", &w, &h);
-	// p.coin = mlx_xpm_file_to_image(mlx_ptr ,"coin.xpm", &w, &h);
-	// p.road = mlx_xpm_file_to_image(mlx_ptr ,"road.xpm", &w, &h);
 	data.win_ptr =mlx_new_window(data.mlx_ptr, data.width * 50, data.height * 50, "./so-long");
-	int w = 50;
-	int h = 50;
-	 i = 0;
-	int j;
 	while(i < data.height)
 	{
 		j = 0;
@@ -177,9 +92,29 @@ int main(int arg_c, char **arg_v)
 		i++;
 	}
 	mlx_loop(data.mlx_ptr);
-	// free(bufer);
-	// put_image(temp, mlx_ptr, mlx_win, &p);
+}
+int main(int arg_c, char **arg_v)
+{
+	int		fd;
+	char	*bufer;
+	char 	**split;
+	t_data	data;
+
+	if (arg_c != 2)
+		return (ft_print_error("arg"), 1); 
+	fd = open(arg_v[1], O_RDONLY);
+	if(fd < 0)
+		return (close(fd), 1);
+	bufer =	read_map(fd);
+	if (!bufer)
+		return(free(bufer), close(fd), 1);
+	if (handel_content(bufer) == 1)
+		return (free(bufer), close(fd), ft_print_error("content"),1);
+	split = ft_split(bufer, '\n');
+	if (!split)
+		return (1);
+	if ((handel_border(split, data.width, data.height)) == 1)
+		return (ft_print_error("border"), 1);
+	print_image(split, bufer, data);
 	return (0);
 }
-
-
