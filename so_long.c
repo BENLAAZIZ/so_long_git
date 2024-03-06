@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/06 16:58:21 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/07 00:51:08 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,55 +56,61 @@ char *get_image_path(int c)
 		path_img = "textures/tassarott.xpm";
 	return (path_img);	
 }
-void print_image(char **split, t_data data)
-{
-	int	i;
-	int	j;
-	int	w;
-	int	h;
+// void print_image(char **split, t_data *data)
+// {
+// 	int	i;
+// 	int	j;
+// 	int	w;
+// 	int	h;
 
-	w = 50;
-	h = 50;
-	i = 0;
-	data.mlx_ptr = mlx_init();
-	data.win_ptr =mlx_new_window(data.mlx_ptr, data.width * 50, data.height * 50, "./so-long");
-	while(i < data.height)
-	{
-		j = 0;
-		while(j < data.width)
-		{
-			data.img_ptr = mlx_xpm_file_to_image(data.mlx_ptr , get_image_path(split[i][j]), &w, &h);
-			mlx_put_image_to_window(data.mlx_ptr,data.win_ptr, data.img_ptr, j * 50, i * 50);
-			j++;
-		}
-		i++;
-	}
-	mlx_loop(data.mlx_ptr);
-}
+// 	w = 50;
+// 	h = 50;
+// 	i = 0;
+// 	data->mlx_ptr = mlx_init();
+// 	data->win_ptr = mlx_new_window(data->mlx_ptr, *data->width * 50, *data->height * 50, "./so-long");
+// 	while(i < *data->height)
+// 	{
+// 		j = 0;
+// 		while(j < *data->width)
+// 		{
+// 			data->img_ptr = mlx_xpm_file_to_image(data->mlx_ptr , get_image_path(split[i][j]), &w, &h);
+// 			mlx_put_image_to_window(data->mlx_ptr, &data->win_ptr, &data->img_ptr, j * 50, i * 50);
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }
 int main(int arg_c, char **arg_v)
 {
 	int		fd;
-	char	*bufer;
+	char	*buffer;
 	char 	**split;
-	t_data	data;
-
+	t_data	*data = (t_data *)malloc(sizeof(t_data));
+	data->width = (int *)malloc(sizeof(int));
 	if (arg_c != 2)
 		return (ft_print_error("arg"), 1); 
 	fd = open(arg_v[1], O_RDONLY);
 	if(fd < 0)
-		return (close(fd), 1);
-	bufer =	read_map(fd);
-	if (!bufer)
-		return(free(bufer), close(fd), 1);
-	if (handel_content(bufer) == 1)
-		return (free(bufer), close(fd), ft_print_error("content"),1);
-	split = ft_split(bufer, '\n');
+		return (1);
+	buffer = read_map(fd);
+	if (!buffer)
+		return(free(buffer), 1);
+	if (handel_content(buffer) == 1)
+		return (free(buffer), ft_print_error("content"),1);
+	split = ft_split(buffer, '\n');
 	if (!split)
-		return (free(bufer), close(fd), 1);
-	data.width = ft_strlen(split[0]);
-	data.height = count_word(bufer, '\n');
-	if ((handel_border(split, data.width, data.height)) == 1)
-		return (free(bufer), close(fd), 1);
-	print_image(split, data);
+		return (free(buffer), 1);
+	int i = 0;
+	while (split[i])
+	{
+		printf("%s\n", split[i]);
+		i++;
+	}
+	*(data->width) = (int)ft_strlen(split[0]);
+	// *data->height = count_word(buffer, '\n');
+	// if ((handel_border(split, data->width, data->height)) == 1)
+	// 	return (free(buffer), 1);
+	// print_image(split, data);
+	// mlx_loop(data->mlx_ptr);
 	return (0);
 }
