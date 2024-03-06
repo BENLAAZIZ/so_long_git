@@ -56,6 +56,10 @@ an error.
 * You have to check if there’s a valid path in the map.
 
 * You must be able to parse any kind of map, as long as it respects the above rules.
+
+<img width="898" alt="Screen Shot 2024-03-06 at 4 41 50 PM" src="https://github.com/BENLAAZIZ/so_long_git/assets/99501397/9bc24c42-58a2-4d34-a733-8f85f4f5357c">
+
+
 ## 
 # What is the MLX?
 The MiniLibX, or MLX, is a framework built by Olivier Crouzet on top of X11, a window system developed back in 1984! The MLX is a beginner-friendly C API to interact with the X11 system behind it. Let's look at some of the functions you might be using.
