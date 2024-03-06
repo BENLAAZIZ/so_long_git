@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:19:00 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/05 19:40:08 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:01:16 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,11 @@ char	*read_map(int fd)
 	}
 	return (buffer);
 }
-int	handel_border( char **split,int whidth, int height, t_data data)
+int	handel_border( char **split,int whidth, int height)
 {
 	int	x;
 	int	y;
 
-	if ((data.height == data.width) || (data.height < 3) || (data.width < 3))
-		return (ft_print_error("border"), 1);
 	x = 0;
 	while (x < whidth)
 	{
@@ -58,18 +56,36 @@ int	handel_border( char **split,int whidth, int height, t_data data)
 	}
 	return (0);
 }
+static int	check_piece(int pl, int dr, int coi)
+{
+	if (pl != 1 || dr != 1 || coi < 1)
+		return (1);
+	return (0);
+}
 int	handel_content(char	*bufer)
 {
 	int i;
+	int	pl;
+	int	coi;
+	int	dr;
 
 	i = 0;
+	pl = 0;
+	dr = 0;
+	coi = 0;
 	while (bufer[i] != '\0')
 	{
 		if ((bufer[i] != '1' && bufer[i] != '0' && bufer[i] != 'P' && bufer[i] != 'E' && bufer[i] != 'C' && bufer[i] != '\n'))
 			{
-				return (ft_print_error("content"), 1);
+				return (1);
 			}
+		if (bufer[i] == 'P')
+			pl++;
+		if (bufer[i] == 'E')
+			dr++;
+		if (bufer[i] == 'C')
+			coi++;
 		i++;
 	}
-	return (0);
+	return (check_piece(pl, dr, coi));
 }

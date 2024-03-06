@@ -6,12 +6,11 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/05 19:34:53 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/06 16:58:21 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <stdio.h>
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
@@ -52,12 +51,12 @@ char *get_image_path(int c)
 	else if(c == '1')
 		path_img = "textures/wall_sijn1pxm.xpm";
 	else if(c == 'E')
-		path_img = "road.xpm";
+		path_img = "textures/door.xpm";
 	else if(c == 'C')
-		path_img = "coin.xpm";
+		path_img = "textures/tassarott.xpm";
 	return (path_img);	
 }
-void print_image(char **split, char *bufer, t_data data)
+void print_image(char **split, t_data data)
 {
 	int	i;
 	int	j;
@@ -98,15 +97,14 @@ int main(int arg_c, char **arg_v)
 	if (!bufer)
 		return(free(bufer), close(fd), 1);
 	if (handel_content(bufer) == 1)
-		return (free(bufer), close(fd), 1);
+		return (free(bufer), close(fd), ft_print_error("content"),1);
 	split = ft_split(bufer, '\n');
 	if (!split)
 		return (free(bufer), close(fd), 1);
 	data.width = ft_strlen(split[0]);
 	data.height = count_word(bufer, '\n');
-	if ((handel_border(split, data.width, data.height, data)) == 1)
+	if ((handel_border(split, data.width, data.height)) == 1)
 		return (free(bufer), close(fd), 1);
-//printf("|ttttttttt\n");
-	print_image(split, bufer, data);
+	print_image(split, data);
 	return (0);
 }
