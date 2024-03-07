@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:03:30 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/07 23:10:54 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/07 23:38:53 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ typedef struct s_piece
 	void *wall;
 	void *door;
 	void *coin;
+	int	pl;
+	int	coi;
+	int	dr;
 	int i;
 	int j;
 	
