@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:03:30 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/07 17:13:14 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/07 19:29:54 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int		handel_border( char **split,int whidth, int height);
 void	ft_print_error(char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		handel_content(char	*bufer);
-int		handel_hey(int key, t_data *data, char **arg_v);
-void cord_player(char **arg_v, t_data *data);
+int		handel_hey(int key, t_data *data);
+void	cord_player(t_data *data);
+void	move_p_up(t_data *data);
 
 #endif

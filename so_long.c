@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/07 17:24:41 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/07 19:29:40 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,18 @@ void print_image(char **split, t_data *data)
 		i++;
 	}
 }
-int	handel_hey(int key, t_data *data, char **arg_v)
+int	handel_hey(int key, t_data *data)
 {
-	cord_player(arg_v, data);
+	cord_player(data);
 	printf("%d\n", data->x_p);
-	printf("%d\n", data->x_p);
+	printf("%d\n", data->y_p);
 	
 	if (key == 53)
 		exit(1);
-	// if (key == 'W')
-	// {
-	// 	move_p_up();
-	// }
+	if (key == 13)
+	{
+		move_p_up(data);
+	}
 	// if (key == 's')
 	// {
 	// 	move_p_down();
@@ -98,37 +98,26 @@ int	handel_hey(int key, t_data *data, char **arg_v)
 	return (1);
 }
 
-void cord_player(char **arg_v, t_data *data)
+void cord_player(t_data *data)
 {
 	char	**split_tmp;
 
-
-	
-	(data->x_p) = -1;
+	(data->x_p) = 0;
 	split_tmp = data->split;
 	if (!split_tmp)
 		return ;	
-
-
-		//*******
-
-	int i = 0;
-	while ( i < data->height)
+	while (data->x_p < data->width)
 	{
-		puts(split_tmp[i]);
-		i++;
-		
-	}
-		//******
-
-	while (++(data->x_p) < data->width)
-	{
-		(data->y_p) = -1;
-		while ( ++(data->y_p) < data->height)
+		data->y_p = 0;
+		while ( data->y_p < data->height)
 		{
 			if (split_tmp[data->x_p][data->y_p] == 'P')
 				break ;
+			++(data->y_p);
 		}
+		if (split_tmp[data->x_p][data->y_p] == 'P')
+				break ;
+		++(data->x_p);
 	}
 }
 int main(int arg_c, char **arg_v)
