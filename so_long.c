@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/07 00:51:08 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/07 17:24:41 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,6 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		return (0);
 	return (ss1[i] - ss2[i]);
 }
-void	ft_print_error(char *str)
-{
-	if (ft_strncmp(str, "content", ft_strlen(str)) == 0)
-		write(1, "eroor\ncontent", 13);
-	if (ft_strncmp(str, "border", ft_strlen(str)) == 0)
-		write(1, "eroor\nborder", 12);
-	if (ft_strncmp(str, "arg", ft_strlen(str)) == 0)
-		write(1, "eroor\nnumber of arguments invalid", 33);
-}
 char *get_image_path(int c)
 {
 	char *path_img;
@@ -56,37 +47,97 @@ char *get_image_path(int c)
 		path_img = "textures/tassarott.xpm";
 	return (path_img);	
 }
-// void print_image(char **split, t_data *data)
-// {
-// 	int	i;
-// 	int	j;
-// 	int	w;
-// 	int	h;
+void print_image(char **split, t_data *data)
+{
+	int	i;
+	int	j;
+	int	w;
+	int	h;
 
-// 	w = 50;
-// 	h = 50;
-// 	i = 0;
-// 	data->mlx_ptr = mlx_init();
-// 	data->win_ptr = mlx_new_window(data->mlx_ptr, *data->width * 50, *data->height * 50, "./so-long");
-// 	while(i < *data->height)
-// 	{
-// 		j = 0;
-// 		while(j < *data->width)
-// 		{
-// 			data->img_ptr = mlx_xpm_file_to_image(data->mlx_ptr , get_image_path(split[i][j]), &w, &h);
-// 			mlx_put_image_to_window(data->mlx_ptr, &data->win_ptr, &data->img_ptr, j * 50, i * 50);
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// }
+	w = 50;
+	h = 50;
+	i = 0;
+	data->mlx_ptr = mlx_init();
+	data->win_ptr = mlx_new_window(data->mlx_ptr, data->width * 50, data->height * 50, "./so-long");
+	while(i < data->height)
+	{
+		j = 0;
+		while(j < data->width)
+		{
+			data->img_ptr = mlx_xpm_file_to_image(data->mlx_ptr , get_image_path(split[i][j]), &w, &h);
+			mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, j * 50, i * 50);
+			j++;
+		}
+		i++;
+	}
+}
+int	handel_hey(int key, t_data *data, char **arg_v)
+{
+	cord_player(arg_v, data);
+	printf("%d\n", data->x_p);
+	printf("%d\n", data->x_p);
+	
+	if (key == 53)
+		exit(1);
+	// if (key == 'W')
+	// {
+	// 	move_p_up();
+	// }
+	// if (key == 's')
+	// {
+	// 	move_p_down();
+	// }	
+	// if (key == 'a')
+	// {
+	// 	move_p_left();
+	// }
+	// if (key == 'd')
+	// {
+	// 	move_p_right();
+	// }
+	return (1);
+}
+
+void cord_player(char **arg_v, t_data *data)
+{
+	char	**split_tmp;
+
+
+	
+	(data->x_p) = -1;
+	split_tmp = data->split;
+	if (!split_tmp)
+		return ;	
+
+
+		//*******
+
+	int i = 0;
+	while ( i < data->height)
+	{
+		puts(split_tmp[i]);
+		i++;
+		
+	}
+		//******
+
+	while (++(data->x_p) < data->width)
+	{
+		(data->y_p) = -1;
+		while ( ++(data->y_p) < data->height)
+		{
+			if (split_tmp[data->x_p][data->y_p] == 'P')
+				break ;
+		}
+	}
+}
 int main(int arg_c, char **arg_v)
 {
 	int		fd;
 	char	*buffer;
-	char 	**split;
+	char 	**split_tmp;
 	t_data	*data = (t_data *)malloc(sizeof(t_data));
-	data->width = (int *)malloc(sizeof(int));
+	
 	if (arg_c != 2)
 		return (ft_print_error("arg"), 1); 
 	fd = open(arg_v[1], O_RDONLY);
@@ -97,20 +148,22 @@ int main(int arg_c, char **arg_v)
 		return(free(buffer), 1);
 	if (handel_content(buffer) == 1)
 		return (free(buffer), ft_print_error("content"),1);
-	split = ft_split(buffer, '\n');
-	if (!split)
+	data->split = ft_split(buffer, '\n');
+	if (!data->split)
 		return (free(buffer), 1);
-	int i = 0;
-	while (split[i])
-	{
-		printf("%s\n", split[i]);
-		i++;
-	}
-	*(data->width) = (int)ft_strlen(split[0]);
-	// *data->height = count_word(buffer, '\n');
-	// if ((handel_border(split, data->width, data->height)) == 1)
-	// 	return (free(buffer), 1);
-	// print_image(split, data);
-	// mlx_loop(data->mlx_ptr);
+	split_tmp = data->split;
+	//  int i = 0;
+	//  while (split_tmp[i])
+	//  {
+	//  	printf("%s\n", data->split[i]);
+	//  	i++;
+	//  }
+	data->width = (int)ft_strlen(split_tmp[0]);
+	data->height = count_word(buffer, '\n');
+	if ((handel_border(split_tmp, (data->width), (data->height))) == 1)
+		return (free(buffer), 1);
+	print_image(split_tmp, data);
+	mlx_key_hook(data->win_ptr, handel_hey, data);
+	mlx_loop(data->mlx_ptr);
 	return (0);
 }

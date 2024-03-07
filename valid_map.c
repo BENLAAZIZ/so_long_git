@@ -6,13 +6,23 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:19:00 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/07 00:26:50 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/07 16:15:49 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "stdio.h"
 
+
+void	ft_print_error(char *str)
+{
+	if (ft_strncmp(str, "content", ft_strlen(str)) == 0)
+		write(1, "eroor\ncontent", 13);
+	if (ft_strncmp(str, "border", ft_strlen(str)) == 0)
+		write(1, "eroor\nborder", 12);
+	if (ft_strncmp(str, "arg", ft_strlen(str)) == 0)
+		write(1, "eroor\nnumber of arguments invalid", 33);
+}
 char	*read_map(int fd)
 {
 	char	*s;
@@ -34,24 +44,24 @@ char	*read_map(int fd)
 	}
 	return (close(fd), buffer);
 }
-int	handel_border( char **split,int *whidth, int *height)
+int	handel_border( char **split,int whidth, int height)
 {
 	int	x;
 	int	y;
 
 	x = 0;
-	while (x < *whidth)
+	while (x < whidth)
 	{
-		if (split[0][x] != '1' || split[*height - 1][x] != '1')
+		if (split[0][x] != '1' || split[height - 1][x] != '1')
 			return (ft_print_error("border"), 1);
 		x++;
 	}
 	y = 0;
-	while (y < *height && split[y] != NULL)
+	while (y < height && split[y] != NULL)
 	{
-		if (split[y][0] != '1' || split[y][*whidth - 1] != '1')
+		if (split[y][0] != '1' || split[y][whidth - 1] != '1')
 			return (ft_print_error("border"), 1);
-		if (ft_strlen(split[y]) != (size_t)(*whidth))
+		if (ft_strlen(split[y]) != (size_t)(whidth))
 			return (ft_print_error("border"), 1);
 		y++;
 	}
