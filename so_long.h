@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:03:30 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/07 22:31:53 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/07 23:10:54 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ typedef struct s_data
 	t_piece p;
 } t_data;
 
-
-
 char	*get_next_line(int fd);
 char	*read_map(int fd);
 int		count_word(const char *s, char c);
@@ -67,5 +65,8 @@ void	print_image(t_data *data);
 int		handel_hey(int key, t_data *data);
 void	cord_player(t_data *data);
 void	move_p_up(t_data *data);
+void	move_p_down(t_data *data);
+void	move_p_right(t_data *data);
+void	move_p_left(t_data *data);
 
 #endif

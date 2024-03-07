@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/07 22:45:41 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/07 23:13:51 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,6 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		return (0);
 	return (ss1[i] - ss2[i]);
 }
-// char *get_image_path(int c)
-// {
-// 	char *path_img;
-// 	path_img = NULL;
-// 	if(c == 'P')
-// 		path_img = "textures/player.xpm";
-// 	else if(c == '0')
-// 		path_img = "textures/route.xpm";
-// 	else if(c == '1')
-// 		path_img = "textures/wall_sijn1pxm.xpm";
-// 	else if(c == 'E')
-// 		path_img = "textures/door.xpm";
-// 	else if(c == 'C')
-// 		path_img = "textures/tassarott.xpm";
-// 	return (path_img);	
-// }
-
 void ft_int(t_data *data)
 {
 	int w;
@@ -70,7 +53,6 @@ void ft_int(t_data *data)
 	}
 	data->win_ptr = mlx_new_window(data->mlx_ptr, data->width * 50, data->height * 50, "./so-long");
 }
-
 void print_image(t_data *data)
 {
 	int	i;
@@ -101,19 +83,26 @@ void print_image(t_data *data)
 }
 int	handel_hey(int key, t_data *data)
 {
-	// printf("%d\n", data->x_p);
-	// printf("%d\n", data->y_p);
-	printf("%d\n", key);
-	
 	if (key == 53)
 		exit(1);
 	if (key == 13)
 	{
 		move_p_up(data);
 	}
+	if (key == 1)
+	{
+		move_p_down(data);
+	}
+	if (key == 2)
+	{
+		move_p_right(data);
+	}
+	if (key == 0)
+	{
+		move_p_left(data);
+	}
 	return (1);
 }
-
 void cord_player(t_data *data)
 {
 	char	**tmp;
@@ -160,8 +149,6 @@ int main(int arg_c, char **arg_v)
 	printf("%s", data->split[0]);
 	if (!data->split)
 		return (free(buffer), 1);
-	// data->width = (int)ft_strlen(data->split[0]);
-	// data->height = count_word(buffer, '\n');
 	ft_int(data);
 	if ((handel_border(data->split, data->width, data->height)) == 1)
 		return (free(buffer), 1);
