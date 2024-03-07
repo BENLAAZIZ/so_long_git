@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:03:30 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/07 19:29:54 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/07 22:31:53 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,18 @@
 #  define BUFFER_SIZE 5
 # endif
 
+typedef struct s_piece
+{
+	void *player;
+	void *rout;
+	void *wall;
+	void *door;
+	void *coin;
+	int i;
+	int j;
+	
+} t_piece;
+
 typedef struct s_data
 {
 	void	*mlx_ptr;
@@ -32,8 +44,10 @@ typedef struct s_data
 	int		x_p;
 	int		y_p;
 	int		width;
-	int		height;	
+	int		height;
+	t_piece p;
 } t_data;
+
 
 
 char	*get_next_line(int fd);
@@ -49,6 +63,7 @@ int		handel_border( char **split,int whidth, int height);
 void	ft_print_error(char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		handel_content(char	*bufer);
+void	print_image(t_data *data);
 int		handel_hey(int key, t_data *data);
 void	cord_player(t_data *data);
 void	move_p_up(t_data *data);
