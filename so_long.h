@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:03:30 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/07 23:38:53 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/08 18:20:02 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@
 
 typedef struct s_piece
 {
-	void *player;
-	void *rout;
-	void *wall;
-	void *door;
-	void *coin;
-	int	pl;
-	int	coi;
-	int	dr;
-	int i;
-	int j;
+	void	*player;
+	void	*rout;
+	void	*wall;
+	void	*door;
+	void	*coin;
+	int		pl;
+	int		coi;
+	int		dr;
+	int		i;
+	int		j;
 	
 } t_piece;
 
@@ -63,7 +63,7 @@ char	**ft_split(char const *s, char c);
 int		handel_border( char **split,int whidth, int height);
 void	ft_print_error(char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-int		handel_content(char	*bufer);
+int		handel_content(char	*bufer, t_data *data);
 void	print_image(t_data *data);
 int		handel_hey(int key, t_data *data);
 void	cord_player(t_data *data);

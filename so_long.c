@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/07 23:13:51 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/08 18:53:06 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,8 @@ void ft_int(t_data *data)
 {
 	int w;
 	int h;
+	
 	data->mlx_ptr = mlx_init();
-	printf(" add:%p\n", data->mlx_ptr);
-	puts("hhhhh");
 	data->p.player = mlx_xpm_file_to_image(data->mlx_ptr , "textures/player.xpm" , &h, &w);
 	data->p.rout = mlx_xpm_file_to_image(data->mlx_ptr , "textures/route.xpm" , &h, &w);
 	data->p.wall = mlx_xpm_file_to_image(data->mlx_ptr , "textures/wall_sijn1pxm.xpm" , &h, &w);
@@ -59,7 +58,6 @@ void print_image(t_data *data)
 	int	j;
 
 	i = 0;
-	printf("%s", data->split[0]);
 	while(data->split[i] != NULL)
 	{
 		j = 0;
@@ -76,7 +74,6 @@ void print_image(t_data *data)
 			if (data->split[i][j] == 'E')
 				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->p.door, j * 50, i * 50);
 			j++;
-			
 		}
 		i++;
 	}
@@ -107,32 +104,30 @@ void cord_player(t_data *data)
 {
 	char	**tmp;
 
-	(data->x_p) = 0;
+	(data->y_p) = 0;
 	tmp = data->split;
 	if (!tmp)
 		return ;	
-	while (data->x_p < data->width)
+	while (data->y_p < data->height)
 	{
-		data->y_p = 0;
-		while ( data->y_p < data->height)
+		data->x_p = 0;
+		while ( data->x_p < data->width)
 		{
-			if (tmp[data->x_p][data->y_p] == 'P')
+			if (tmp[data->y_p][data->x_p] == 'P')
 				break ;
-			++(data->y_p);
+			++(data->x_p);
 		}
-		if (tmp[data->x_p][data->y_p] == 'P')
+		if (tmp[data->y_p][data->x_p] == 'P')
 				break ;
-		++(data->x_p);
+	puts("-----------");
+		++(data->y_p);
 	}
-	
 }
 int main(int arg_c, char **arg_v)
 {
 	int		fd;
 	char	*buffer;
 	t_data	*data = (t_data *)malloc(sizeof(t_data));
-	t_piece p;
-	
 	if (arg_c != 2)
 		return (ft_print_error("arg"), 1); 
 	fd = open(arg_v[1], O_RDONLY);
@@ -141,12 +136,12 @@ int main(int arg_c, char **arg_v)
 	buffer = read_map(fd);
 	if (!buffer)
 		return(free(buffer), 1);
-	if (handel_content(buffer) == 1)
+	if (handel_content(buffer, data) == 1)
 		return (free(buffer), ft_print_error("content"),1);
 	char **temp =NULL;
 	data->split = ft_split(buffer, '\n');
 	temp = data->split;
-	printf("%s", data->split[0]);
+	// printf("%s", data->split[0]);
 	if (!data->split)
 		return (free(buffer), 1);
 	ft_int(data);
@@ -155,7 +150,8 @@ int main(int arg_c, char **arg_v)
 	data->split = temp;
 	print_image(data);
 	cord_player(data);
-	mlx_key_hook(data->win_ptr, handel_hey, data);
+	// mlx_key_hook(data->win_ptr, handel_hey, data);
+	mlx_hook(data->win_ptr, 2, 0, handel_hey, data);
 	mlx_loop(data->mlx_ptr);
 	return (0);
 }
