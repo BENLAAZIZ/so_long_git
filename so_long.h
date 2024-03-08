@@ -6,18 +6,17 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:03:30 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/08 18:20:02 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/08 21:50:04 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef SO_LONG_H
+# define SO_LONG_H
 
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <mlx.h>
-#include <stdio.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 5
@@ -35,8 +34,7 @@ typedef struct s_piece
 	int		dr;
 	int		i;
 	int		j;
-	
-} t_piece;
+}	t_piece;
 
 typedef struct s_data
 {
@@ -48,8 +46,8 @@ typedef struct s_data
 	int		y_p;
 	int		width;
 	int		height;
-	t_piece p;
-} t_data;
+	t_piece	p;
+}	t_data;
 
 char	*get_next_line(int fd);
 char	*read_map(int fd);
@@ -60,7 +58,7 @@ void	*ft_memcpy(void	*dst, const void *src, size_t n);
 char	*ft_strdup(const char *s1);
 char	**my_array(char **array, char const *s, char c, int nbr_word);
 char	**ft_split(char const *s, char c);
-int		handel_border( char **split,int whidth, int height);
+int		handel_border( char **split, int whidth, int height);
 void	ft_print_error(char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		handel_content(char	*bufer, t_data *data);
