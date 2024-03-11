@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/08 22:19:18 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/11 18:12:51 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	print_image(t_data *data)
 	}
 }
 
-int	handel_hey(int key, t_data *data)
+int	handel_key(int key, t_data *data)
 {
 	if (key == 53)
 		exit(1);
@@ -133,12 +133,30 @@ void	cord_player(t_data *data)
 	}
 }
 
+// int	fload_fill(t_data all, int x, int y,int *exit)
+// {
+// 	if (all.split[y][x] == '1')
+// 		return 1;
+// 	puts("cccc");
+// 	if (all.split[y][x] == 'C')
+// 		all.p.coi_copy--;
+// 	if (all.split[y][x] == 'E')
+// 		*exit--;
+// 	all.split[y][x] = '1';
+// 	if (all.p.coi_copy == 0 && *exit <= 0)
+// 		return 1;
+// 	if (fload_fill(all, (x - 1), y, exit) || fload_fill(all, (x + 1), y, exit)
+// 		|| fload_fill(all, x, (y - 1), exit) || fload_fill(all, x, (y + 1), exit))
+// 		return (1);
+// 	return (0);
+// }
+
 int	main(int arg_c, char **arg_v)
 {
 	int		fd;
 	char	*buffer;
-	t_data	*data = (t_data *)malloc(sizeof(t_data));
-
+	t_data	data;
+	
 	if (arg_c != 2)
 		return (ft_print_error("arg"), 1);
 	fd = open(arg_v[1], O_RDONLY);
@@ -147,18 +165,25 @@ int	main(int arg_c, char **arg_v)
 	buffer = read_map(fd);
 	if (!buffer)
 		return (free(buffer), 1);
-	if (handel_content(buffer, data) == 1)
+	if (handel_content(buffer, &data) == 1)
 		return (free(buffer), ft_print_error("content"), 1);
-	data->split = ft_split(buffer, '\n');
-	if (!data->split)
+	data.split = ft_split(buffer, '\n');
+	if (!data.split)
 		return (free(buffer), 1);
-	ft_int(data);
-	if ((handel_border(data->split, data->width, data->height)) == 1)
+	if ((handel_border(data.split, data.width, data.height)) == 1)
 		return (free(buffer), 1);
-	print_image(data);
-	cord_player(data);
+	ft_int(&data);
+	data.p.coi_copy = data.p.coi;
+		//*************************************************
+	int b = fload_fill(data, data.y_p, data.x_p, 1);
+	if(b == 0)
+		 	return (0);
+		//******************************************
+	// ft_int(&data);
+	print_image(&data);
+	cord_player(&data);
 	// mlx_key_hook(data->win_ptr, handel_hey, data);
-	mlx_hook(data->win_ptr, 2, 0, handel_hey, data);
-	mlx_loop(data->mlx_ptr);
+	mlx_hook(data.win_ptr, 2, 0, handel_key, &data);
+	mlx_loop(data.mlx_ptr);
 	return (0);
 }

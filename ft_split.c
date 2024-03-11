@@ -6,13 +6,13 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:31:08 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/02/26 21:35:45 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/10 06:32:43 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	count_word(const char *s, char c)
+static int	count_word(const char *s, char c)
 {
 	int	len;
 	int	i;
