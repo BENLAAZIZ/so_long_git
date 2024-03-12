@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/12 17:36:24 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:53:37 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,26 +175,26 @@ void	cord_player(t_data *data)
 // 		return (NULL);
 // 	}
 	
-int	f_fload(t_data *data)
-{
-	int	i;
-	int	j;
+// int	f_fload(t_data *data)
+// {
+// 	int	i;
+// 	int	j;
 
-	j = 0;
-	while (data->split2[j] != NULL)
-	{
-		i = 0;
-		while (data->split2[j][i] != '\0')
-		{
-			if (data->split2[j][i] == '0')
-				return (0);
-			i++;
-		}
-		// printf("\n%s", data->split2[j]);
-		j++;
-	}
-	return (1);
-}
+// 	j = 0;
+// 	while (data->split2[j] != NULL)
+// 	{
+// 		i = 0;
+// 		while (data->split2[j][i] != '\0')
+// 		{
+// 			if (data->split2[j][i] == '0')
+// 				return (0);
+// 			i++;
+// 		}
+// 		// printf("\n%s", data->split2[j]);
+// 		j++;
+// 	}
+// 	return (1);
+// }
 
 int	main(int arg_c, char **arg_v)
 {

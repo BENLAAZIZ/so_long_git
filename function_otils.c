@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:35:21 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/12 17:36:11 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:54:49 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,3 +30,47 @@ char	*get_buffer(char **arg_v)
 	else
 		return (NULL);
 	}
+
+int	fload_fill(t_data *data, int x, int y, int *exit)
+{
+	if (data->split2[x][y] == '1')
+		return 0;
+	if (data->split2[x][y] == 'E' && data->p.coi_copy == 0)
+	{
+		data->split2[x][y] = '1';
+		--(*exit);
+	}
+	// if (data->split2[x][y] == 'E' && data->p.coi_copy > 0)
+	// 		return 0;
+	if (data->split2[x][y] == 'C')
+		--data->p.coi_copy;
+	data->split2[x][y] = '1';
+	fload_fill(data, (x - 1), y, exit);
+	fload_fill(data, (x + 1), y, exit);
+	fload_fill(data, x, (y - 1), exit);
+	fload_fill(data, x, (y + 1), exit);
+	if (data->p.coi_copy <= 0 && *exit <= 0)
+		return (1);
+	return (0);
+}
+
+int	f_fload(t_data *data)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	while (data->split2[j] != NULL)
+	{
+		i = 0;
+		while (data->split2[j][i] != '\0')
+		{
+			if (data->split2[j][i] == '0')
+				return (0);
+			i++;
+		}
+		// printf("\n%s", data->split2[j]);
+		j++;
+	}
+	return (1);
+}
