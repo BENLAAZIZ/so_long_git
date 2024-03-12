@@ -2,7 +2,7 @@ NAME = so_long
 
 CC = CC
 
-FLAGS = 
+FLAGS = -g
 
 RM = rm -f
 

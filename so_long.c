@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/11 18:12:51 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/12 14:13:21 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,55 +133,69 @@ void	cord_player(t_data *data)
 	}
 }
 
-// int	fload_fill(t_data all, int x, int y,int *exit)
-// {
-// 	if (all.split[y][x] == '1')
-// 		return 1;
-// 	puts("cccc");
-// 	if (all.split[y][x] == 'C')
-// 		all.p.coi_copy--;
-// 	if (all.split[y][x] == 'E')
-// 		*exit--;
-// 	all.split[y][x] = '1';
-// 	if (all.p.coi_copy == 0 && *exit <= 0)
-// 		return 1;
-// 	if (fload_fill(all, (x - 1), y, exit) || fload_fill(all, (x + 1), y, exit)
-// 		|| fload_fill(all, x, (y - 1), exit) || fload_fill(all, x, (y + 1), exit))
-// 		return (1);
-// 	return (0);
-// }
-
+int	fload_fill(t_data *data, int x, int y,int *exit)
+{
+	if (data->split2[x][y] == '1')
+			return 0;
+	if (data->split2[x][y] == 'E' && data->p.coi_copy > 0)
+			return 0;
+	if (data->split2[x][y] == 'C')
+			--data->p.coi_copy;
+	if (data->split2[x][y] == 'E' && *exit == 1)
+		--(*exit);
+	data->split2[x][y] = '1';
+	fload_fill(data, (x - 1), y, exit);
+	fload_fill(data, (x + 1), y, exit);
+	fload_fill(data, x, (y - 1), exit);
+	fload_fill(data, x, (y + 1), exit);
+	if (data->p.coi_copy <= 0 && *exit <= 0)
+		return 1;
+	return (0);
+}
+char	*get_buffer(char	**arg_v)
+{
+	int fd;
+	char *buffer;
+	if (arg_v[1] != NULL)
+	{
+		fd = open(arg_v[1], O_RDONLY);
+		if (fd < 0)
+			return (NULL);
+		buffer = read_map(fd);
+		if (!buffer)
+			return (free(buffer), NULL);
+		return (buffer);
+	}
+		else
+		return (NULL);
+	}
 int	main(int arg_c, char **arg_v)
 {
 	int		fd;
 	char	*buffer;
 	t_data	data;
+	int a;
+	int b;
 	
 	if (arg_c != 2)
 		return (ft_print_error("arg"), 1);
-	fd = open(arg_v[1], O_RDONLY);
-	if (fd < 0)
-		return (1);
-	buffer = read_map(fd);
-	if (!buffer)
-		return (free(buffer), 1);
-	if (handel_content(buffer, &data) == 1)
-		return (free(buffer), ft_print_error("content"), 1);
-	data.split = ft_split(buffer, '\n');
+	if (handel_content(get_buffer(arg_v), &data) == 1)
+		return (ft_print_error("map"), 1);
+		puts("hhhhhhh");
+	data.split = ft_split(get_buffer(arg_v), '\n');
 	if (!data.split)
-		return (free(buffer), 1);
-	if ((handel_border(data.split, data.width, data.height)) == 1)
-		return (free(buffer), 1);
+		return (1);
 	ft_int(&data);
-	data.p.coi_copy = data.p.coi;
-		//*************************************************
-	int b = fload_fill(data, data.y_p, data.x_p, 1);
-	if(b == 0)
-		 	return (0);
-		//******************************************
-	// ft_int(&data);
+	if ((handel_border(data.split, data.width, data.height)) == 1)
+		return (1);
+	cord_player(&data);	
+	data.split2 = ft_split(get_buffer(arg_v), '\n');
+		data.p.coi_copy = data.p.coi;
+		a = 1;
+		b = fload_fill(&data, data.y_p, data.x_p, &a);
+		if(b == 0)
+			return (ft_print_error("map"), 0);
 	print_image(&data);
-	cord_player(&data);
 	// mlx_key_hook(data->win_ptr, handel_hey, data);
 	mlx_hook(data.win_ptr, 2, 0, handel_key, &data);
 	mlx_loop(data.mlx_ptr);
