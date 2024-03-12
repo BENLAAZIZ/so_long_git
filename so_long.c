@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/12 14:13:21 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/12 14:47:56 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,16 +133,39 @@ void	cord_player(t_data *data)
 	}
 }
 
+// int	fload_fill(t_data *data, int x, int y,int *exit)
+// {
+// 	if (data->split2[x][y] == '1')
+// 			return 0;
+// 	if (data->split2[x][y] == 'E' && data->p.coi_copy > 0)
+// 			return 0;
+// 	if (data->split2[x][y] == 'C')
+// 			--data->p.coi_copy;
+// 	if (data->split2[x][y] == 'E' && *exit == 1)
+// 		--(*exit);
+// 	data->split2[x][y] = '1';
+// 	fload_fill(data, (x - 1), y, exit);
+// 	fload_fill(data, (x + 1), y, exit);
+// 	fload_fill(data, x, (y - 1), exit);
+// 	fload_fill(data, x, (y + 1), exit);
+// 	if (data->p.coi_copy <= 0 && *exit <= 0)
+// 		return 1;
+// 	return (0);
+// }
+
 int	fload_fill(t_data *data, int x, int y,int *exit)
 {
 	if (data->split2[x][y] == '1')
 			return 0;
-	if (data->split2[x][y] == 'E' && data->p.coi_copy > 0)
-			return 0;
+	if (data->split2[x][y] == 'E' && data->p.coi_copy == 0)
+	{
+		data->split2[x][y] = '1';
+		--(*exit);
+	}
+	// if (data->split2[x][y] == 'E' && data->p.coi_copy > 0)
+	// 		return 0;
 	if (data->split2[x][y] == 'C')
 			--data->p.coi_copy;
-	if (data->split2[x][y] == 'E' && *exit == 1)
-		--(*exit);
 	data->split2[x][y] = '1';
 	fload_fill(data, (x - 1), y, exit);
 	fload_fill(data, (x + 1), y, exit);
@@ -169,6 +192,27 @@ char	*get_buffer(char	**arg_v)
 		else
 		return (NULL);
 	}
+int	f_fload(t_data *data)
+{
+	int i;
+	int j;
+	
+	j = 0;
+	while (data->split2[j] != NULL)
+	{
+		i = 0;
+		while (data->split2[j][i] != '\0')
+		{
+			if (data->split2[j][i] == '0')
+				return (0);
+			i++;
+		}
+		printf("\n%s", data->split2[j]);
+		j++;
+	}
+	return (1);
+}
+
 int	main(int arg_c, char **arg_v)
 {
 	int		fd;
@@ -181,7 +225,6 @@ int	main(int arg_c, char **arg_v)
 		return (ft_print_error("arg"), 1);
 	if (handel_content(get_buffer(arg_v), &data) == 1)
 		return (ft_print_error("map"), 1);
-		puts("hhhhhhh");
 	data.split = ft_split(get_buffer(arg_v), '\n');
 	if (!data.split)
 		return (1);
@@ -195,6 +238,11 @@ int	main(int arg_c, char **arg_v)
 		b = fload_fill(&data, data.y_p, data.x_p, &a);
 		if(b == 0)
 			return (ft_print_error("map"), 0);
+		puts("dcdddddd");
+		if (f_fload(&data) == 0)
+			return (ft_print_error("map"), 0);
+	
+	printf("\nb %d	", b);
 	print_image(&data);
 	// mlx_key_hook(data->win_ptr, handel_hey, data);
 	mlx_hook(data.win_ptr, 2, 0, handel_key, &data);
