@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:03:30 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/12 11:52:08 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:25:46 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <stdlib.h>
 # include <mlx.h>
 # include <stdio.h>
-
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 5

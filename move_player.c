@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 16:08:18 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/10 06:31:49 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:20:06 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 static void	move_action(t_data *data, int x, int y)
 {
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, 
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 		data->p.rout, data->x_p * 50, data->y_p * 50);
 	data->x_p = x;
 	data->y_p = y;
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, 
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 		data->p.player, data->x_p * 50, data->y_p * 50);
 }
 
 void	move_p_up(t_data *data)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = data->x_p;
 	y = data->y_p;
@@ -33,7 +33,7 @@ void	move_p_up(t_data *data)
 	{
 		if (data->split[data->y_p - 1][data->x_p] == 'E' && data->p.coi <= 0)
 		{
-		move_action(data, x, --y);
+			move_action(data, x, --y);
 			exit(1);
 		}
 		else if (data->split[data->y_p - 1][data->x_p] == 'C')
@@ -49,8 +49,8 @@ void	move_p_up(t_data *data)
 
 void	move_p_down(t_data *data)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = data->x_p;
 	y = data->y_p;
@@ -74,8 +74,8 @@ void	move_p_down(t_data *data)
 
 void	move_p_right(t_data *data)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = data->x_p;
 	y = data->y_p;
@@ -99,8 +99,8 @@ void	move_p_right(t_data *data)
 
 void	move_p_left(t_data *data)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = data->x_p;
 	y = data->y_p;
