@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:03:30 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/12 17:25:46 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:36:33 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,8 @@ void	move_p_up(t_data *data);
 void	move_p_down(t_data *data);
 void	move_p_right(t_data *data);
 void	move_p_left(t_data *data);
+int		fload_fill(t_data *data, int x, int y, int *exit);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*get_buffer(char **arg_v);
 
 #endif

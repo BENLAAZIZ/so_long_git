@@ -6,31 +6,31 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/12 17:25:15 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:36:24 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	size_t			i;
-	unsigned char	*ss1;
-	unsigned char	*ss2;
+// int	ft_strncmp(const char *s1, const char *s2, size_t n)
+// {
+// 	size_t			i;
+// 	unsigned char	*ss1;
+// 	unsigned char	*ss2;
 
-	i = 0;
-	ss1 = (unsigned char *)s1;
-	ss2 = (unsigned char *)s2;
-	while ((ss1[i] != '\0' || ss2[i] != '\0') && (n > i))
-	{
-		if (ss1[i] != ss2[i])
-			return (ss1[i] - ss2[i]);
-		i++;
-	}
-	if (n == i)
-		return (0);
-	return (ss1[i] - ss2[i]);
-}
+// 	i = 0;
+// 	ss1 = (unsigned char *)s1;
+// 	ss2 = (unsigned char *)s2;
+// 	while ((ss1[i] != '\0' || ss2[i] != '\0') && (n > i))
+// 	{
+// 		if (ss1[i] != ss2[i])
+// 			return (ss1[i] - ss2[i]);
+// 		i++;
+// 	}
+// 	if (n == i)
+// 		return (0);
+// 	return (ss1[i] - ss2[i]);
+// }
 
 void	ft_init(t_data *data)
 {
@@ -133,47 +133,47 @@ void	cord_player(t_data *data)
 	}
 }
 
-int	fload_fill(t_data *data, int x, int y, int *exit)
-{
-	if (data->split2[x][y] == '1')
-		return 0;
-	if (data->split2[x][y] == 'E' && data->p.coi_copy == 0)
-	{
-		data->split2[x][y] = '1';
-		--(*exit);
-	}
-	// if (data->split2[x][y] == 'E' && data->p.coi_copy > 0)
-	// 		return 0;
-	if (data->split2[x][y] == 'C')
-		--data->p.coi_copy;
-	data->split2[x][y] = '1';
-	fload_fill(data, (x - 1), y, exit);
-	fload_fill(data, (x + 1), y, exit);
-	fload_fill(data, x, (y - 1), exit);
-	fload_fill(data, x, (y + 1), exit);
-	if (data->p.coi_copy <= 0 && *exit <= 0)
-		return (1);
-	return (0);
-}
+// int	fload_fill(t_data *data, int x, int y, int *exit)
+// {
+// 	if (data->split2[x][y] == '1')
+// 		return 0;
+// 	if (data->split2[x][y] == 'E' && data->p.coi_copy == 0)
+// 	{
+// 		data->split2[x][y] = '1';
+// 		--(*exit);
+// 	}
+// 	// if (data->split2[x][y] == 'E' && data->p.coi_copy > 0)
+// 	// 		return 0;
+// 	if (data->split2[x][y] == 'C')
+// 		--data->p.coi_copy;
+// 	data->split2[x][y] = '1';
+// 	fload_fill(data, (x - 1), y, exit);
+// 	fload_fill(data, (x + 1), y, exit);
+// 	fload_fill(data, x, (y - 1), exit);
+// 	fload_fill(data, x, (y + 1), exit);
+// 	if (data->p.coi_copy <= 0 && *exit <= 0)
+// 		return (1);
+// 	return (0);
+// }
 
-char	*get_buffer(char **arg_v)
-{
-	int		fd;
-	char	*buffer;
+// char	*get_buffer(char **arg_v)
+// {
+// 	int		fd;
+// 	char	*buffer;
 
-	if (arg_v[1] != NULL)
-	{
-		fd = open(arg_v[1], O_RDONLY);
-		if (fd < 0)
-			return (NULL);
-		buffer = read_map(fd);
-		if (!buffer)
-			return (free(buffer), NULL);
-		return (buffer);
-	}
-	else
-		return (NULL);
-	}
+// 	if (arg_v[1] != NULL)
+// 	{
+// 		fd = open(arg_v[1], O_RDONLY);
+// 		if (fd < 0)
+// 			return (NULL);
+// 		buffer = read_map(fd);
+// 		if (!buffer)
+// 			return (free(buffer), NULL);
+// 		return (buffer);
+// 	}
+// 	else
+// 		return (NULL);
+// 	}
 	
 int	f_fload(t_data *data)
 {

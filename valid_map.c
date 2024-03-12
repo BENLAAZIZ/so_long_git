@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:19:00 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/12 17:26:36 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:31:15 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,26 @@ int	handel_content(char	*bufer, t_data *data)
 		i++;
 	}
 	return (check_piece(data->p.pl, data->p.dr, data->p.coi));
+}
+int	fload_fill(t_data *data, int x, int y, int *exit)
+{
+	if (data->split2[x][y] == '1')
+		return 0;
+	if (data->split2[x][y] == 'E' && data->p.coi_copy == 0)
+	{
+		data->split2[x][y] = '1';
+		--(*exit);
+	}
+	// if (data->split2[x][y] == 'E' && data->p.coi_copy > 0)
+	// 		return 0;
+	if (data->split2[x][y] == 'C')
+		--data->p.coi_copy;
+	data->split2[x][y] = '1';
+	fload_fill(data, (x - 1), y, exit);
+	fload_fill(data, (x + 1), y, exit);
+	fload_fill(data, x, (y - 1), exit);
+	fload_fill(data, x, (y + 1), exit);
+	if (data->p.coi_copy <= 0 && *exit <= 0)
+		return (1);
+	return (0);
 }
