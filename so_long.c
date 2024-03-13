@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/12 17:53:37 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:28:18 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,8 @@ int	main(int arg_c, char **arg_v)
 	data.p.coi_copy = data.p.coi;
 	a = 1;
 	b = fload_fill(&data, data.y_p, data.x_p, &a);
-	if(b == 0 || f_fload(&data) == 0)
+	// || f_fload(&data) == 0
+	if(b == 0)
 		return (ft_print_error("map"), 0);
 	print_image(&data);
 	// mlx_key_hook(data->win_ptr, handel_hey, data);

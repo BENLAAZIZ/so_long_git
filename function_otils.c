@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:35:21 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/12 17:54:49 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:27:44 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,23 +54,23 @@ int	fload_fill(t_data *data, int x, int y, int *exit)
 	return (0);
 }
 
-int	f_fload(t_data *data)
-{
-	int	i;
-	int	j;
+// int	f_fload(t_data *data)
+// {
+// 	int	i;
+// 	int	j;
 
-	j = 0;
-	while (data->split2[j] != NULL)
-	{
-		i = 0;
-		while (data->split2[j][i] != '\0')
-		{
-			if (data->split2[j][i] == '0')
-				return (0);
-			i++;
-		}
-		// printf("\n%s", data->split2[j]);
-		j++;
-	}
-	return (1);
-}
+// 	j = 0;
+// 	while (data->split2[j] != NULL)
+// 	{
+// 		i = 0;
+// 		while (data->split2[j][i] != '\0')
+// 		{
+// 			if (data->split2[j][i] == '0')
+// 				return (0);
+// 			i++;
+// 		}
+// 		// printf("\n%s", data->split2[j]);
+// 		j++;
+// 	}
+// 	return (1);
+// }
