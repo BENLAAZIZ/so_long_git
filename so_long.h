@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:03:30 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/14 23:22:09 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:13:14 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef struct s_piece
 	int		dr;
 	int		i;
 	int		j;
+	int		a;
+	int		b;
 }	t_piece;
 
 typedef struct s_data
@@ -66,9 +68,7 @@ int		handel_border( char **split, int whidth, int height);
 void	ft_print_error(char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		handel_content(char	*bufer, t_data *data);
-void	print_image(t_data *data);
 int		handel_key(int key, t_data *data);
-void	cord_player(t_data *data);
 void	move_p_up(t_data *data);
 void	move_p_down(t_data *data);
 void	move_p_right(t_data *data);
@@ -76,7 +76,8 @@ void	move_p_left(t_data *data);
 int		fload_fill(t_data *data, int x, int y, int *exit);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*get_buffer(char **arg_v, t_data *data);
-// int		f_fload(t_data *data);
-void	free_t_data(char **array);
+void	free_t_split(char **array);
+int		ft_exit(t_data *data);
+void	free_split_buffer(t_data *data);
 
 #endif

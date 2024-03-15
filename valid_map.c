@@ -6,43 +6,11 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:19:00 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/15 15:15:00 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:24:54 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	ft_print_error(char *str)
-{
-	if (ft_strncmp(str, "map", ft_strlen(str)) == 0)
-		write(1, "Eroor\ninvalid map", 17);
-	if (ft_strncmp(str, "arg", ft_strlen(str)) == 0)
-		write(1, "Eroor\nnumber of arguments invalid", 33);
-}
-
-char	*read_map(int fd)
-{
-	char	*s;
-	char	*buffer;
-	char	*tmp;
-
-	buffer = NULL;
-	tmp = NULL;
-	while (1)
-	{
-		s = get_next_line(fd);
-		if (!s)
-			break ;
-		tmp = buffer;
-		buffer = ft_strjoin(tmp, s);
-		free(tmp);
-		free(s);
-		s = NULL;
-	}
-	if (!buffer)
-		return (NULL);
-	return (buffer);
-}
 
 int	handel_border( char **split, int whidth, int height)
 {
@@ -75,17 +43,21 @@ static int	check_piece(int pl, int dr, int coi)
 	return (0);
 }
 
+void	init_variable(t_data *data)
+{
+	data->p.coi = 0;
+	data->p.coin = 0;
+	data->p.dr = 0;
+	data->p.coi = 0;
+	data->p.a = 1;
+}
+
 int	handel_content(char	*bufer, t_data *data)
 {
 	int	i;
 
 	i = 0;
-	data->p.coi = 0;
-	data->p.coin = 0;
-	data->p.dr = 0;
-	data->p.coi = 0;
-	// if (!bufer)
-	// 	return (1);
+	init_variable(data);
 	if (!bufer || !bufer[i])
 		return (ft_print_error("map"), 1);
 	while (bufer[i] != '\0')
@@ -105,4 +77,30 @@ int	handel_content(char	*bufer, t_data *data)
 	}
 	free(data->buffer);
 	return (check_piece(data->p.pl, data->p.dr, data->p.coi));
+}
+
+int	handel_key(int key, t_data *data)
+{
+	if (key == 53)
+	{
+		free_t_split(data->split2);
+		exit(1);
+	}
+	if (key == 13)
+	{
+		move_p_up(data);
+	}
+	if (key == 1)
+	{
+		move_p_down(data);
+	}
+	if (key == 2)
+	{
+		move_p_right(data);
+	}
+	if (key == 0)
+	{
+		move_p_left(data);
+	}
+	return (1);
 }

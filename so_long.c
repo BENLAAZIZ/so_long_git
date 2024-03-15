@@ -6,13 +6,13 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/15 15:22:44 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:23:57 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	ft_init(t_data *data)
+static void	ft_init(t_data *data)
 {
 	int	w;
 	int	h;
@@ -40,7 +40,7 @@ void	ft_init(t_data *data)
 			data->width * 50, data->height * 50, "./so-long");
 }
 
-void	print_image(t_data *data)
+static void	print_image(t_data *data)
 {
 	data->p.i = -1;
 	while (data->split2[++(data->p.i)] != NULL)
@@ -67,33 +67,7 @@ void	print_image(t_data *data)
 	}
 }
 
-int	handel_key(int key, t_data *data)
-{
-	if (key == 53)
-	{
-		free_t_data(data->split2);
-		exit(1);
-	}
-	if (key == 13)
-	{
-		move_p_up(data);
-	}
-	if (key == 1)
-	{
-		move_p_down(data);
-	}
-	if (key == 2)
-	{
-		move_p_right(data);
-	}
-	if (key == 0)
-	{
-		move_p_left(data);
-	}
-	return (1);
-}
-
-void	cord_player(t_data *data)
+static void	cord_player(t_data *data)
 {
 	char	**tmp;
 
@@ -116,23 +90,19 @@ void	cord_player(t_data *data)
 	}
 }
 
-void v(void)
+static void	so_long(t_data *data)
 {
-	system("leaks so_long");
+	print_image(data);
+	mlx_hook(data->win_ptr, 2, 0, handel_key, data);
+	mlx_hook(data->win_ptr, 17, 0, ft_exit, data);
+	mlx_loop(data->mlx_ptr);
 }
-int ft_exit(t_data *data)
-{
-	free_t_data(data->split2);
-	exit(1);
-}
+
 int	main(int arg_c, char **arg_v)
 {
 	int		fd;
 	t_data	data;
-	int		a;
-	int		b;
 
-	atexit(v);
 	if (arg_c != 2)
 		return (ft_print_error("arg"), 1);
 	if (handel_content(get_buffer(arg_v, &data), &data) == 1)
@@ -142,21 +112,16 @@ int	main(int arg_c, char **arg_v)
 		return (free(data.buffer), 1);
 	ft_init(&data);
 	if ((handel_border(data.split, data.width, data.height)) == 1)
-		return (free_t_data(data.split), free(data.buffer), 1);
+		return (free_split_buffer(&data), 1);
 	cord_player(&data);
 	data.p.coi_copy = data.p.coi;
-	a = 1;
-	b = fload_fill(&data, data.y_p, data.x_p, &a);
-	if(b == 0)
-		return (free_t_data(data.split), free(data.buffer), ft_print_error("map"), 0);
-	free_t_data(data.split);
-	free(data.buffer);	
+	data.p.b = fload_fill(&data, data.y_p, data.x_p, &data.p.a);
+	if (data.p.b == 0)
+		return (free_split_buffer(&data), ft_print_error("map"), 0);
+	free_split_buffer(&data);
 	data.split2 = ft_split(get_buffer(arg_v, &data), '\n');
 	if (!data.split2)
 		return (free(data.buffer), 1);
-	print_image(&data);
-	mlx_hook(data.win_ptr, 2, 0, handel_key, &data);
-	mlx_hook(data.win_ptr, 17, 0, ft_exit, &data);
-	mlx_loop(data.mlx_ptr);
+	so_long(&data);
 	return (0);
 }

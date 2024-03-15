@@ -6,7 +6,7 @@ FLAGS = -g
 
 RM = rm -f
 
-SRC =  so_long.c ft_split.c get_next_line.c  get_next_line_utils.c valid_map.c move_player.c function_otils.c
+SRC =  so_long.c ft_split.c get_next_line.c  get_next_line_utils.c valid_map.c move_player.c function_otils.c free_function.c  
 	  
 
 OBJ = $(SRC:.c=.o)
