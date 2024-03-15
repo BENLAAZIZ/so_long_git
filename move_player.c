@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 16:08:18 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/12 17:20:06 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/14 22:52:06 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,20 @@ void	move_p_up(t_data *data)
 
 	x = data->x_p;
 	y = data->y_p;
-	if (data->split[data->y_p - 1][data->x_p] != '1')
+	if (data->split2[data->y_p - 1][data->x_p] != '1')
 	{
-		if (data->split[data->y_p - 1][data->x_p] == 'E' && data->p.coi <= 0)
+		if (data->split2[data->y_p - 1][data->x_p] == 'E' && data->p.coi <= 0)
 		{
 			move_action(data, x, --y);
 			exit(1);
 		}
-		else if (data->split[data->y_p - 1][data->x_p] == 'C')
+		else if (data->split2[data->y_p - 1][data->x_p] == 'C')
 		{
 			move_action(data, x, --y);
-			data->split[data->y_p][data->x_p] = '0';
+			data->split2[data->y_p][data->x_p] = '0';
 			--data->p.coi;
 		}
-		else if (data->split[data->y_p - 1][data->x_p] != 'E')
+		else if (data->split2[data->y_p - 1][data->x_p] != 'E')
 			move_action(data, x, --y);
 	}
 }
@@ -54,20 +54,20 @@ void	move_p_down(t_data *data)
 
 	x = data->x_p;
 	y = data->y_p;
-	if (data->split[data->y_p + 1][data->x_p] != '1')
+	if (data->split2[data->y_p + 1][data->x_p] != '1')
 	{
-		if (data->split[data->y_p + 1][data->x_p] == 'E' && data->p.coi <= 0)
+		if (data->split2[data->y_p + 1][data->x_p] == 'E' && data->p.coi <= 0)
 		{
 			move_action(data, x, ++y);
 			exit(1);
 		}
-		else if (data->split[data->y_p + 1][data->x_p] == 'C')
+		else if (data->split2[data->y_p + 1][data->x_p] == 'C')
 		{
 			move_action(data, x, ++y);
-			data->split[data->y_p][data->x_p] = '0';
+			data->split2[data->y_p][data->x_p] = '0';
 			--data->p.coi;
 		}
-		else if (data->split[data->y_p + 1][data->x_p] != 'E')
+		else if (data->split2[data->y_p + 1][data->x_p] != 'E')
 			move_action(data, x, ++y);
 	}
 }
@@ -79,20 +79,20 @@ void	move_p_right(t_data *data)
 
 	x = data->x_p;
 	y = data->y_p;
-	if (data->split[data->y_p][data->x_p + 1] != '1')
+	if (data->split2[data->y_p][data->x_p + 1] != '1')
 	{
-		if (data->split[data->y_p][data->x_p + 1] == 'E' && data->p.coi <= 0)
+		if (data->split2[data->y_p][data->x_p + 1] == 'E' && data->p.coi <= 0)
 		{
 			move_action(data, ++x, y);
 			exit(1);
 		}
-		else if (data->split[data->y_p][data->x_p + 1] == 'C')
+		else if (data->split2[data->y_p][data->x_p + 1] == 'C')
 		{
 			move_action(data, ++x, y);
-			data->split[data->y_p][data->x_p] = '0';
+			data->split2[data->y_p][data->x_p] = '0';
 			--data->p.coi;
 		}
-		else if (data->split[data->y_p][data->x_p + 1] != 'E')
+		else if (data->split2[data->y_p][data->x_p + 1] != 'E')
 			move_action(data, ++x, y);
 	}
 }
@@ -104,20 +104,20 @@ void	move_p_left(t_data *data)
 
 	x = data->x_p;
 	y = data->y_p;
-	if (data->split[data->y_p][data->x_p - 1] != '1')
+	if (data->split2[data->y_p][data->x_p - 1] != '1')
 	{
-		if (data->split[data->y_p][data->x_p - 1] == 'E' && data->p.coi <= 0)
+		if (data->split2[data->y_p][data->x_p - 1] == 'E' && data->p.coi <= 0)
 		{
 			move_action(data, --x, y);
 			exit(1);
 		}
-		else if (data->split[data->y_p][data->x_p - 1] == 'C')
+		else if (data->split2[data->y_p][data->x_p - 1] == 'C')
 		{
 			move_action(data, --x, y);
-			data->split[data->y_p][data->x_p] = '0';
+			data->split2[data->y_p][data->x_p] = '0';
 			--data->p.coi;
 		}
-		else if (data->split[data->y_p][data->x_p - 1] != 'E' )
+		else if (data->split2[data->y_p][data->x_p - 1] != 'E' )
 			move_action(data, --x, y);
 	}
 }

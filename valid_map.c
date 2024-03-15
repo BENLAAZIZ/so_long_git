@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:19:00 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/12 17:54:29 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/15 15:15:00 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ char	*read_map(int fd)
 		s = NULL;
 	}
 	if (!buffer)
-		return (close(fd), NULL);
-	return (close(fd), buffer);
+		return (NULL);
+	return (buffer);
 }
 
 int	handel_border( char **split, int whidth, int height)
@@ -84,7 +84,9 @@ int	handel_content(char	*bufer, t_data *data)
 	data->p.coin = 0;
 	data->p.dr = 0;
 	data->p.coi = 0;
-	if (!bufer[i])
+	// if (!bufer)
+	// 	return (1);
+	if (!bufer || !bufer[i])
 		return (ft_print_error("map"), 1);
 	while (bufer[i] != '\0')
 	{
@@ -101,5 +103,6 @@ int	handel_content(char	*bufer, t_data *data)
 			data->p.coi++;
 		i++;
 	}
+	free(data->buffer);
 	return (check_piece(data->p.pl, data->p.dr, data->p.coi));
 }
