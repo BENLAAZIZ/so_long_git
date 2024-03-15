@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/15 17:23:57 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:12:03 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,13 @@ static void	cord_player(t_data *data)
 	}
 }
 
-static void	so_long(t_data *data)
+void v(void)
+{
+	system("leaks so_long");
+}
+
+
+static void so_long(t_data *data)
 {
 	print_image(data);
 	mlx_hook(data->win_ptr, 2, 0, handel_key, data);
@@ -103,6 +109,7 @@ int	main(int arg_c, char **arg_v)
 	int		fd;
 	t_data	data;
 
+	atexit(v);
 	if (arg_c != 2)
 		return (ft_print_error("arg"), 1);
 	if (handel_content(get_buffer(arg_v, &data), &data) == 1)
@@ -116,7 +123,7 @@ int	main(int arg_c, char **arg_v)
 	cord_player(&data);
 	data.p.coi_copy = data.p.coi;
 	data.p.b = fload_fill(&data, data.y_p, data.x_p, &data.p.a);
-	if (data.p.b == 0)
+	if(data.p.b == 0)
 		return (free_split_buffer(&data), ft_print_error("map"), 0);
 	free_split_buffer(&data);
 	data.split2 = ft_split(get_buffer(arg_v, &data), '\n');

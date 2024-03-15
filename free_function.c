@@ -6,20 +6,20 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 16:50:31 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/15 17:19:05 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:04:20 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	free_t_split(char **array)
+void free_t_split(char **array)
 {
-	int	i;
+	int i;
 
 	i = 0;
-	if (!array)
+	if(!array)
 		return ;
-	while (array && array[i])
+	while(array && array[i])
 	{
 		free(array[i]);
 		i++;
@@ -27,7 +27,7 @@ void	free_t_split(char **array)
 	free(array);
 }
 
-int	ft_exit(t_data *data)
+int ft_exit(t_data *data)
 {
 	free_t_split(data->split2);
 	exit(1);
@@ -36,7 +36,7 @@ int	ft_exit(t_data *data)
 void	free_split_buffer(t_data *data)
 {
 	free_t_split(data->split);
-	free(data->buffer);
+	free(data->buffer);	
 }
 
 void	ft_print_error(char *str)
