@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:19:00 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/15 17:08:56 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/15 21:31:51 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	check_piece(int pl, int dr, int coi)
 	return (0);
 }
 
-void init_variable(t_data *data)
+void	init_variable(t_data *data)
 {
 	data->p.coi = 0;
 	data->p.coin = 0;

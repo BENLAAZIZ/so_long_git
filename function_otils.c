@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:35:21 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/15 17:07:47 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/15 21:24:11 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ char	*get_buffer(char **arg_v, t_data *data)
 int	fload_fill(t_data *data, int x, int y, int *exit)
 {
 	if (data->split[x][y] == '1')
-		return 0;
+		return (0);
 	if (data->split[x][y] == 'E' && data->p.coi_copy == 0)
 	{
 		data->split[x][y] = '1';
 		--(*exit);
 	}
 	if (data->split[x][y] == 'E' && data->p.coi_copy > 0)
-			return 0;
+		return (0);
 	if (data->split[x][y] == 'C')
 		--data->p.coi_copy;
 	data->split[x][y] = '1';
@@ -77,4 +77,3 @@ int	fload_fill(t_data *data, int x, int y, int *exit)
 		return (1);
 	return (0);
 }
-
