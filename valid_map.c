@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:19:00 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/17 02:53:24 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/17 05:45:50 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ int	handel_border( char **split, int whidth, int height, t_data *data)
 			return (ft_print_error("map"), 1);
 		y++;
 	}
-	if (data->width == data->height)
-		return (ft_print_error("map"), destroy_all(data), 1);
 	return (0);
 }
 
