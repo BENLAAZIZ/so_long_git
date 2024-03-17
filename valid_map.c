@@ -6,13 +6,11 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:19:00 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/17 02:34:27 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/17 02:53:24 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-
 
 int	handel_border( char **split, int whidth, int height, t_data *data)
 {

@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:03:30 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/17 02:39:28 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/17 04:02:18 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_piece
 	int		j;
 	int		a;
 	int		b;
+	int		move;
 }	t_piece;
 
 typedef struct s_data
@@ -80,5 +81,6 @@ void	free_split_buffer(t_data *data);
 void	destroy_all(t_data *data);
 int		ft_filename(char *file);
 void	*ft_mlx_xpm_file_to_image(t_data *data, char *path);
+void	ft_putnbr(int n);
 
 #endif

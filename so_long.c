@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/17 02:38:01 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/17 03:53:50 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_init(t_data *data)
 {
 	int	w;
 	int	h;
+
 	data->mlx_ptr = mlx_init();
 	data->width = (int)ft_strlen(data->split[0]);
 	data->height = 0;
@@ -32,7 +33,8 @@ void	ft_init(t_data *data)
 	data->p.wall = ft_mlx_xpm_file_to_image(data, "textures/wall_sijn1pxm.xpm");
 	data->p.door = ft_mlx_xpm_file_to_image(data, "textures/door.xpm");
 	data->p.coin = ft_mlx_xpm_file_to_image(data, "textures/tassarott.xpm");
-	if (!data->p.player || !data->p.rout || !data->p.wall || !data->p.door || !data->p.coin)
+	if (!data->p.player || !data->p.rout || !data->p.wall
+		|| !data->p.door || !data->p.coin)
 		destroy_all(data);
 }
 
@@ -86,13 +88,9 @@ static void	cord_player(t_data *data)
 	}
 }
 
-void	v(void)
-{
-	system("leaks so_long");
-}
-
 static void	so_long(t_data *data)
 {
+	data->p.move = 0;
 	print_image(data);
 	mlx_hook(data->win_ptr, 2, 0, handel_key, data);
 	mlx_hook(data->win_ptr, 17, 0, ft_exit, data);
@@ -104,7 +102,6 @@ int	main(int arg_c, char **arg_v)
 	int		fd;
 	t_data	data;
 
-	atexit(v);
 	if (arg_c != 2)
 		return (ft_print_error("arg"), 1);
 	if (handel_content(get_buffer(arg_v, &data), &data) == 1)
