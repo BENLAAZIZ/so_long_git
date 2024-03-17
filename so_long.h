@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:03:30 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/15 21:30:54 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/17 02:39:28 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,8 @@ char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);
 void	*ft_memcpy(void	*dst, const void *src, size_t n);
 char	*ft_strdup(const char *s1);
-char	**my_array(char **array, char const *s, char c, int nbr_word);
 char	**ft_split(char const *s, char c);
-int		handel_border( char **split, int whidth, int height);
+int		handel_border( char **split, int whidth, int height, t_data *data);
 void	ft_print_error(char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		handel_content(char	*bufer, t_data *data);
@@ -74,10 +73,12 @@ void	move_p_down(t_data *data);
 void	move_p_right(t_data *data);
 void	move_p_left(t_data *data);
 int		fload_fill(t_data *data, int x, int y, int *exit);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*get_buffer(char **arg_v, t_data *data);
 void	free_t_split(char **array);
 int		ft_exit(t_data *data);
 void	free_split_buffer(t_data *data);
+void	destroy_all(t_data *data);
+int		ft_filename(char *file);
+void	*ft_mlx_xpm_file_to_image(t_data *data, char *path);
 
 #endif

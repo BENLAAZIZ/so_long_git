@@ -6,28 +6,17 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/15 21:29:56 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/17 02:38:01 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	ft_init(t_data *data)
+void	ft_init(t_data *data)
 {
 	int	w;
 	int	h;
-
 	data->mlx_ptr = mlx_init();
-	data->p.player = mlx_xpm_file_to_image(data->mlx_ptr,
-			"textures/player.xpm", &h, &w);
-	data->p.rout = mlx_xpm_file_to_image(data->mlx_ptr,
-			"textures/route.xpm", &h, &w);
-	data->p.wall = mlx_xpm_file_to_image(data->mlx_ptr,
-			"textures/wall_sijn1pxm.xpm", &h, &w);
-	data->p.door = mlx_xpm_file_to_image(data->mlx_ptr,
-			"textures/door.xpm", &h, &w);
-	data->p.coin = mlx_xpm_file_to_image(data->mlx_ptr,
-			"textures/tassarott.xpm", &h, &w);
 	data->width = (int)ft_strlen(data->split[0]);
 	data->height = 0;
 	while (data->split)
@@ -38,6 +27,13 @@ static void	ft_init(t_data *data)
 	}
 	data->win_ptr = mlx_new_window(data->mlx_ptr,
 			data->width * 50, data->height * 50, "./so-long");
+	data->p.player = ft_mlx_xpm_file_to_image(data, "textures/player.xpm");
+	data->p.rout = ft_mlx_xpm_file_to_image(data, "textures/route.xpm");
+	data->p.wall = ft_mlx_xpm_file_to_image(data, "textures/wall_sijn1pxm.xpm");
+	data->p.door = ft_mlx_xpm_file_to_image(data, "textures/door.xpm");
+	data->p.coin = ft_mlx_xpm_file_to_image(data, "textures/tassarott.xpm");
+	if (!data->p.player || !data->p.rout || !data->p.wall || !data->p.door || !data->p.coin)
+		destroy_all(data);
 }
 
 static void	print_image(t_data *data)
@@ -112,12 +108,12 @@ int	main(int arg_c, char **arg_v)
 	if (arg_c != 2)
 		return (ft_print_error("arg"), 1);
 	if (handel_content(get_buffer(arg_v, &data), &data) == 1)
-		return (free(data.buffer), 1);
+		return (ft_print_error("map"), 1);
 	data.split = ft_split(get_buffer(arg_v, &data), '\n');
 	if (!data.split)
 		return (free(data.buffer), 1);
 	ft_init(&data);
-	if ((handel_border(data.split, data.width, data.height)) == 1)
+	if ((handel_border(data.split, data.width, data.height, &data)) == 1)
 		return (free_split_buffer(&data), 1);
 	cord_player(&data);
 	data.p.coi_copy = data.p.coi;
