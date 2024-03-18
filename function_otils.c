@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:35:21 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/18 03:28:22 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/18 03:33:59 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ int	fload_fill(t_data *data, int x, int y, int *exit)
 	fload_fill(data, x, (y - 1), exit);
 	fload_fill(data, x, (y + 1), exit);
 	if (data->p.coi_copy <= 0 && *exit <= 0)
-		return (1);
-	return (0);
+		return (0);
+	return (1);
 }
 
 int	handel_key(int key, t_data *data)
