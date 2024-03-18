@@ -14,7 +14,7 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-		$(CC) $(FLAGS) $(OBJ) -Lmlx  -lmlx -framework OpenGL -framework AppKit  -o $(NAME)
+		$(CC) $(FLAGS) $(OBJ) -lmlx -framework OpenGL -framework AppKit  -o $(NAME)
 
 %.o: %.c so_long.h 
 		$(CC) $(FLAGS) -o $@ -c $<
