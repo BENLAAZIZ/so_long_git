@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/17 23:35:27 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/18 00:48:24 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	ft_init(t_data *data)
 			data->width * 50, data->height * 50, "./so-long");
 	data->p.player = ft_mlx_xpm_file_to_image(data, "textures/player_c.xpm");
 	data->p.rout = ft_mlx_xpm_file_to_image(data, "textures/space.xpm");
-	data->p.wall = ft_mlx_xpm_file_to_image(data, "textures/wall_sijn1pxm.xpm");
+	data->p.wall = ft_mlx_xpm_file_to_image(data, "textures/wall.xpm");
 	data->p.door = ft_mlx_xpm_file_to_image(data, "textures/exit.xpm");
-	data->p.coin = ft_mlx_xpm_file_to_image(data, "textures/collectible.xpm");
+	data->p.coin = ft_mlx_xpm_file_to_image(data, "textures/zlij.xpm");
 	if (!data->p.player || !data->p.rout || !data->p.wall
 		|| !data->p.door || !data->p.coin)
 		destroy_all(data);
