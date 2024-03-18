@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/18 00:58:19 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/18 01:54:16 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	ft_init(t_data *data)
 {
-	int	w;
-	int	h;
-
 	data->mlx_ptr = mlx_init();
 	data->width = (int)ft_strlen(data->split[0]);
 	data->height = 0;
@@ -99,7 +96,6 @@ static void	so_long(t_data *data)
 
 int	main(int arg_c, char **arg_v)
 {
-	int		fd;
 	t_data	data;
 
 	if (arg_c != 2)
@@ -110,7 +106,7 @@ int	main(int arg_c, char **arg_v)
 	if (!data.split)
 		return (free(data.buffer), 1);
 	ft_init(&data);
-	if ((handel_border(data.split, data.width, data.height, &data)) == 1)
+	if ((handel_border(data.split, data.width, data.height)) == 1)
 		return (free_split_buffer(&data), 1);
 	cord_player(&data);
 	data.p.coi_copy = data.p.coi;

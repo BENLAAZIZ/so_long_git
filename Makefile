@@ -1,8 +1,8 @@
 NAME = so_long
 
-CC = CC
+CC = cc
 
-FLAGS = -g
+FLAGS = -Wall -Wextra -Werror -Imlx 
 
 RM = rm -f
 

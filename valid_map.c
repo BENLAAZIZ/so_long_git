@@ -6,13 +6,13 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:19:00 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/17 05:45:50 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/18 01:53:39 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	handel_border( char **split, int whidth, int height, t_data *data)
+int	handel_border( char **split, int whidth, int height)
 {
 	int	x;
 	int	y;
@@ -29,7 +29,7 @@ int	handel_border( char **split, int whidth, int height, t_data *data)
 	{
 		if (split[y][0] != '1' || split[y][whidth - 1] != '1')
 			return (ft_print_error("map"), 1);
-		if (ft_strlen(split[y]) != whidth)
+		if (ft_strlen(split[y]) != (size_t)whidth)
 			return (ft_print_error("map"), 1);
 		y++;
 	}

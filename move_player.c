@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 16:08:18 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/17 04:04:30 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/18 01:54:50 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	move_action(t_data *data, int x, int y)
 {
-	char *p;
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 		data->p.rout, data->x_p * 50, data->y_p * 50);
 	data->x_p = x;
