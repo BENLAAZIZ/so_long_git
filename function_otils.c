@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:35:21 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/17 02:49:54 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/18 03:28:22 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,19 +99,19 @@ int	handel_key(int key, t_data *data)
 		free_t_split(data->split2);
 		exit(1);
 	}
-	if (key == 13)
+	if (key == 13 || key == 126)
 	{
 		move_p_up(data);
 	}
-	if (key == 1)
+	if (key == 1 || key == 125)
 	{
 		move_p_down(data);
 	}
-	if (key == 2)
+	if (key == 2 || key == 124)
 	{
 		move_p_right(data);
 	}
-	if (key == 0)
+	if (key == 0 || key == 123)
 	{
 		move_p_left(data);
 	}
