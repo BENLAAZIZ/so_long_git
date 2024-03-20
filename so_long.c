@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/18 03:30:31 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/20 05:43:11 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,8 @@ void	ft_init(t_data *data)
 	data->mlx_ptr = mlx_init();
 	data->width = (int)ft_strlen(data->split[0]);
 	data->height = 0;
-	while (data->split)
-	{
-		if (!data->split[data->height])
-			break ;
+	while (data->split[data->height])
 		data->height++;
-	}
 	data->win_ptr = mlx_new_window(data->mlx_ptr,
 			data->width * 50, data->height * 50, "./so-long");
 	data->p.player = ft_mlx_xpm_file_to_image(data, "textures/man.xpm");
@@ -94,10 +90,15 @@ static void	so_long(t_data *data)
 	mlx_loop(data->mlx_ptr);
 }
 
+void v()
+{
+	system("leaks so_long");
+}
 int	main(int arg_c, char **arg_v)
 {
 	t_data	data;
 
+	atexit(v);
 	if (arg_c != 2)
 		return (ft_print_error("arg"), 1);
 	if (handel_content(get_buffer(arg_v, &data), &data) == 1)
@@ -107,11 +108,11 @@ int	main(int arg_c, char **arg_v)
 		return (free(data.buffer), 1);
 	ft_init(&data);
 	if ((handel_border(data.split, data.width, data.height)) == 1)
-		return (free_split_buffer(&data), 1);
+		return (free_split_buffer(&data), destroy_all(&data), 1);
 	cord_player(&data);
 	data.p.coi_copy = data.p.coi;
 	data.p.b = fload_fill(&data, data.y_p, data.x_p, &data.p.a);
-	if (data.p.b == 0)
+	if (data.p.b == 1)
 		return (free_split_buffer(&data), ft_print_error("map"), 0);
 	free_split_buffer(&data);
 	data.split2 = ft_split(get_buffer(arg_v, &data), '\n');

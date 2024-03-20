@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:35:21 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/18 03:33:59 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/20 05:47:47 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	*ft_mlx_xpm_file_to_image(t_data *data, char *path)
 
 char	*get_buffer(char **arg_v, t_data *data)
 {
-	int		fd;
+	int	fd;
+	int	len;
 
 	data->buffer = NULL;
 	if (ft_filename(arg_v[1]))
@@ -63,34 +64,39 @@ char	*get_buffer(char **arg_v, t_data *data)
 		data->buffer = read_map(fd);
 		if (!data->buffer)
 			return (close(fd), NULL);
-		return (close(fd), data->buffer);
+	len = ft_strlen(data->buffer);
+	if (data->buffer[0] != '1' || data->buffer[len - 1] != '1')
+		return (free(data->buffer), NULL);
+	return (close(fd), data->buffer);
 	}
 	else
 		return (free(data->buffer), NULL);
 }
 
-int	fload_fill(t_data *data, int x, int y, int *exit)
+int fload_fill(t_data *data, int y, int x, int *exit)
 {
-	if (data->split[x][y] == '1')
-		return (0);
-	if (data->split[x][y] == 'E' && data->p.coi_copy == 0)
-	{
-		data->split[x][y] = '1';
-		--(*exit);
-	}
-	if (data->split[x][y] == 'E' && data->p.coi_copy > 0)
-		return (0);
-	if (data->split[x][y] == 'C')
-		--data->p.coi_copy;
-	data->split[x][y] = '1';
-	fload_fill(data, (x - 1), y, exit);
-	fload_fill(data, (x + 1), y, exit);
-	fload_fill(data, x, (y - 1), exit);
-	fload_fill(data, x, (y + 1), exit);
-	if (data->p.coi_copy <= 0 && *exit <= 0)
-		return (0);
-	return (1);
+    if (data->split[y][x] == '1')
+        return (1);
+    if (data->split[y][x] == 'E' && data->p.coi_copy == 0)
+    {
+        data->split[y][x] = '0';
+        --(*exit);
+    }
+    if (data->split[y][x] == 'E' && data->p.coi_copy > 0)
+        return (1);
+    if (data->split[y][x] == 'C')
+        --data->p.coi_copy;
+    data->split[y][x] = '1';
+    if (!fload_fill(data, (y - 1), x, exit) 
+        || !fload_fill(data, (y + 1), x, exit) 
+        || !fload_fill(data, y, (x - 1), exit) 
+        || !fload_fill(data, y, (x + 1), exit))
+        return (0);
+    if (data->p.coi_copy <= 0 && *exit <= 0)
+        return (1);
+    return 0;
 }
+
 
 int	handel_key(int key, t_data *data)
 {
