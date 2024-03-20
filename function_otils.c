@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:35:21 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/20 05:47:47 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/20 22:06:18 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ char	*read_map(int fd)
 
 	buffer = NULL;
 	tmp = NULL;
+	s = NULL;
 	while (1)
 	{
 		s = get_next_line(fd);
@@ -52,7 +53,6 @@ char	*get_buffer(char **arg_v, t_data *data)
 {
 	int	fd;
 	int	len;
-
 	data->buffer = NULL;
 	if (ft_filename(arg_v[1]))
 		return (NULL);
@@ -64,13 +64,14 @@ char	*get_buffer(char **arg_v, t_data *data)
 		data->buffer = read_map(fd);
 		if (!data->buffer)
 			return (close(fd), NULL);
+		printf("|%c|\n", data->buffer[8]);
 	len = ft_strlen(data->buffer);
 	if (data->buffer[0] != '1' || data->buffer[len - 1] != '1')
 		return (free(data->buffer), NULL);
 	return (close(fd), data->buffer);
 	}
 	else
-		return (free(data->buffer), NULL);
+		return (NULL);
 }
 
 int fload_fill(t_data *data, int y, int x, int *exit)
@@ -83,18 +84,18 @@ int fload_fill(t_data *data, int y, int x, int *exit)
         --(*exit);
     }
     if (data->split[y][x] == 'E' && data->p.coi_copy > 0)
-        return (1);
+        return (0);
     if (data->split[y][x] == 'C')
         --data->p.coi_copy;
     data->split[y][x] = '1';
-    if (!fload_fill(data, (y - 1), x, exit) 
-        || !fload_fill(data, (y + 1), x, exit) 
-        || !fload_fill(data, y, (x - 1), exit) 
-        || !fload_fill(data, y, (x + 1), exit))
-        return (0);
+	fload_fill(data, (y - 1), x, exit);
+	fload_fill(data, (y + 1), x, exit);
+	fload_fill(data, y, (x - 1), exit);
+	fload_fill(data, y, (x + 1), exit);
     if (data->p.coi_copy <= 0 && *exit <= 0)
-        return (1);
-    return 0;
+        return (0);
+   else
+   	 return 1;
 }
 
 

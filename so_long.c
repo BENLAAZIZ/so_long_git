@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:02:37 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/20 05:43:11 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/20 22:05:16 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	ft_init(t_data *data)
 	data->height = 0;
 	while (data->split[data->height])
 		data->height++;
+	printf("h %d ; w %d", data->height, data->width);
 	data->win_ptr = mlx_new_window(data->mlx_ptr,
 			data->width * 50, data->height * 50, "./so-long");
 	data->p.player = ft_mlx_xpm_file_to_image(data, "textures/man.xpm");
@@ -103,6 +104,7 @@ int	main(int arg_c, char **arg_v)
 		return (ft_print_error("arg"), 1);
 	if (handel_content(get_buffer(arg_v, &data), &data) == 1)
 		return (ft_print_error("map"), 1);
+	puts("ssssss");
 	data.split = ft_split(get_buffer(arg_v, &data), '\n');
 	if (!data.split)
 		return (free(data.buffer), 1);
@@ -113,7 +115,7 @@ int	main(int arg_c, char **arg_v)
 	data.p.coi_copy = data.p.coi;
 	data.p.b = fload_fill(&data, data.y_p, data.x_p, &data.p.a);
 	if (data.p.b == 1)
-		return (free_split_buffer(&data), ft_print_error("map"), 0);
+		return (free_split_buffer(&data), destroy_all(&data), ft_print_error("map"), 0);
 	free_split_buffer(&data);
 	data.split2 = ft_split(get_buffer(arg_v, &data), '\n');
 	if (!data.split2)
