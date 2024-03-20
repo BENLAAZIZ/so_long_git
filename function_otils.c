@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:35:21 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/20 22:06:18 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/20 23:22:19 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ char	*get_buffer(char **arg_v, t_data *data)
 		data->buffer = read_map(fd);
 		if (!data->buffer)
 			return (close(fd), NULL);
-		printf("|%c|\n", data->buffer[8]);
 	len = ft_strlen(data->buffer);
 	if (data->buffer[0] != '1' || data->buffer[len - 1] != '1')
 		return (free(data->buffer), NULL);
@@ -77,14 +76,12 @@ char	*get_buffer(char **arg_v, t_data *data)
 int fload_fill(t_data *data, int y, int x, int *exit)
 {
     if (data->split[y][x] == '1')
-        return (1);
-    if (data->split[y][x] == 'E' && data->p.coi_copy == 0)
-    {
-        data->split[y][x] = '0';
-        --(*exit);
-    }
-    if (data->split[y][x] == 'E' && data->p.coi_copy > 0)
         return (0);
+    if (data->split[y][x] == 'E')
+	{
+        --(*exit);
+		return 0;
+	}
     if (data->split[y][x] == 'C')
         --data->p.coi_copy;
     data->split[y][x] = '1';

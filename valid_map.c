@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:19:00 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/20 21:50:52 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/20 23:21:42 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int	handel_content(char	*bufer, t_data *data)
 			data->p.coi++;
 		i++;
 	}
-		puts("*******");
 	free(data->buffer);
 	return (check_piece(data->p.pl, data->p.dr, data->p.coi));
 }
