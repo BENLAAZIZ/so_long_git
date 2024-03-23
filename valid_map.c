@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 21:19:00 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/20 23:21:42 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/22 22:08:48 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ int	handel_content(char	*bufer, t_data *data)
 
 	i = 0;
 	init_variable(data);
-	if (!bufer || !bufer[i])
+	if (!bufer)
 		return (1);
-	while (bufer[i] != '\0')
+	while (bufer[i])
 	{
 		if ((bufer[i] != '1' && bufer[i] != '0' && bufer[i] != 'P'
 				&& bufer[i] != 'E' && bufer[i] != 'C' && bufer[i] != '\n'))

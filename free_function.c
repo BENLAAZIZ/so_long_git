@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 16:50:31 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/17 02:49:33 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/22 22:34:23 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	free_t_split(char **array)
 int	ft_exit(t_data *data)
 {
 	free_t_split(data->split2);
+	destroy_all(data);
 	exit(1);
 }
 

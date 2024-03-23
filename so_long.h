@@ -6,7 +6,7 @@
 /*   By: hben-laz <hben-laz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:03:30 by hben-laz          #+#    #+#             */
-/*   Updated: 2024/03/18 03:30:40 by hben-laz         ###   ########.fr       */
+/*   Updated: 2024/03/23 01:55:40 by hben-laz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <mlx.h>
-# include <stdio.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 5
@@ -37,7 +36,6 @@ typedef struct s_piece
 	int		i;
 	int		j;
 	int		a;
-	int		b;
 	int		move;
 }	t_piece;
 
@@ -52,7 +50,6 @@ typedef struct s_data
 	int		y_p;
 	int		width;
 	int		height;
-	int		exi;
 	char	*buffer;
 	t_piece	p;
 }	t_data;
